@@ -15,7 +15,7 @@ const steps = [
     paragraph: "We evaluate distressed and stalled assets with recovery potential.",
     image: "/images/model-1.png",
     imageStyle: { top: "250px", left: "80px" },
-    textStyle: { top: "270px", left: "380px", width: "240px" },
+    textStyle: { top: "450px", left: "380px", width: "240px" },
   },
   {
     number: "02",
@@ -72,7 +72,7 @@ export default function OurModel() {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full bg-[#FFFDF8]"
+      className="relative w-full overflow-x-hidden bg-[#FFFDF8]"
       style={{ height: "1600px" }}
     >
       {/* Header */}
@@ -121,7 +121,7 @@ export default function OurModel() {
               width: step.textStyle.width,
             }}
           >
-            <p className="text-grey text-sm mb-2">{step.number}</p>
+            <p className="text-grey text-sm mb-5">{step.number}</p>
             <p className="text-subheading uppercase font-light text-grey mb-3">
               {step.label}
             </p>

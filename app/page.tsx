@@ -1,5 +1,5 @@
 import Header from "@/components/sections/Header";
-import HeroPhilosophy from "@/components/sections/HeroPhilosophy";
+import Hero from "@/components/sections/Hero";
 import MissionVision from "@/components/sections/MissionVision";
 import OurTeam from "@/components/sections/OurTeam";
 import FullBleedReveal from "@/components/sections/FullBleedReveal";
@@ -9,9 +9,9 @@ import FooterSection from "@/components/sections/FooterSection";
 
 export default function Home() {
   return (
-    <main>
+    <main className="relative bg-[#FCFCFB]">
       <Header />
-      <HeroPhilosophy />
+      <Hero />
       <MissionVision />
       <OurTeam />
       <FullBleedReveal />

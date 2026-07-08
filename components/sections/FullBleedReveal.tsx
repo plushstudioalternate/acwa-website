@@ -17,7 +17,7 @@ export default function FullBleedReveal() {
       gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top top",
+          start: "center center",
           end: "+=100%",
           scrub: 1,
           pin: true,
@@ -35,7 +35,7 @@ export default function FullBleedReveal() {
   return (
     <div
       ref={sectionRef}
-      className="relative h-screen w-full overflow-hidden bg-[#FFFDF8]"
+      className="relative h-[60dvh] w-full overflow-hidden bg-[#FFFDF8]"
     >
       <div
         ref={imageWrapRef}
@@ -43,7 +43,7 @@ export default function FullBleedReveal() {
         style={{ inset: "5%" }}
       >
         <Image
-          src="/images/full-bleed.png"
+          src="/images/enlarged image.jpg"
           alt="Full bleed reveal"
           fill
           sizes="100vw"

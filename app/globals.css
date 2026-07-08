@@ -9,9 +9,9 @@
 
   /* Fonts */
   --font-nippo: "Nippo", sans-serif;
-
-  /* Font sizes - desktop defaults */
-  --text-subheading: 24px;
+  --font-abacaxi: "Abacaxi", sans-serif;
+    /* Font sizes - desktop defaults */
+    --text-subheading: 24px;
   --text-heading: 40px;
   --text-para: 20px;
 }
@@ -28,6 +28,14 @@
   font-family: "Nippo";
   src: url("/fonts/Nippo-Light.woff2") format("woff2");
   font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Abacaxi";
+  src: url("/fonts/Abacaxi.otf") format("opentype");
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }

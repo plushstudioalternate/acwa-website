@@ -17,19 +17,19 @@ const founders = [
       "To become India's leading platform for real estate revival and project completion.",
   },
   {
-    image: "/images/founder-2.png",
+    image: "/images/project-miro-bg.png",
     name: "Founder Two",
     designation: "Co-Founder",
     paragraph: "Placeholder paragraph for founder two goes here.",
   },
   {
-    image: "/images/founder-3.png",
+    image: "/images/project-nyma-fg.png",
     name: "Founder Three",
     designation: "Head of Operations",
     paragraph: "Placeholder paragraph for founder three goes here.",
   },
   {
-    image: "/images/founder-4.png",
+    image: "/images/project-miro-bg.png",
     name: "Founder Four",
     designation: "Lead Architect",
     paragraph: "Placeholder paragraph for founder four goes here.",
@@ -45,73 +45,95 @@ export default function OurTeam() {
 
   useGSAP(
     () => {
-      // Calculate exact slide distance: bottom of right column - bottom of left text,
-      // both measured from their shared top-1/4 starting point
-      const leftHeight = leftTextRef.current?.offsetHeight ?? 0;
-      const rightHeight = rightColumnRef.current
-        ? rightColumnRef.current.querySelector("img")?.parentElement
-            ?.parentElement?.offsetHeight ?? 0
-        : 0;
+      let slideDistance = 0;
+      const ease = gsap.parseEase("power2.inOut");
 
-      // Simplify: just measure the full right column height vs left text height
-      const rightColumnHeight = rightColumnRef.current?.offsetHeight ?? 0;
-      const slideDistance = Math.max(rightColumnHeight - leftHeight, 0);
+      // Calculate total movement distance dynamically
+      const calculateDistance = () => {
+        if (!leftTextRef.current || !rightColumnRef.current) return;
+        
+        // Reset left heading transform to y: 0 so previous GSAP transforms do not affect the calculation
+        gsap.set(leftTextRef.current, { y: 0 });
+        
+        const leftRect = leftTextRef.current.getBoundingClientRect();
+        const imageContainer = rightColumnRef.current.querySelector(".image-container") as HTMLElement | null;
+        const imageRect = imageContainer?.getBoundingClientRect();
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "+=300%",
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
+        if (imageRect && leftRect) {
+          // Total distance is the difference between right image bottom and left heading bottom
+          slideDistance = Math.max(imageRect.bottom - leftRect.bottom, 0);
+        }
+      };
+
+      // Run initial calculation
+      calculateDistance();
+
+      // ONE ScrollTrigger as the single source of truth
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "+=300%",
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onRefresh: calculateDistance, // Recalculate measurements automatically when layout changes
+        onUpdate: (self) => {
+          const p = self.progress; // Normalized scroll progress (0 to 1)
+
+          // 1. Progress left-side heading movement continuously
+          gsap.set(leftTextRef.current, { y: slideDistance * p });
+
+          // 2. Progress right-side founder sequence continuously
+          const totalTransitions = founders.length - 1;
+          const scaledProgress = p * totalTransitions;
+
+          founders.forEach((_, i) => {
+            // Image transition reveal (linear / ease: none)
+            if (i > 0) {
+              const imgDist = scaledProgress - (i - 1);
+              if (imgDist <= 0) {
+                // Not yet entered
+                gsap.set(cardRefs.current[i], { clipPath: "inset(100% 0% 0% 0%)" });
+              } else if (imgDist >= 1) {
+                // Fully entered
+                gsap.set(cardRefs.current[i], { clipPath: "inset(0% 0% 0% 0%)" });
+              } else {
+                // Transitioning
+                gsap.set(cardRefs.current[i], { clipPath: `inset(${(1 - imgDist) * 100}% 0% 0% 0%)` });
+              }
+            }
+
+            // Paragraph transition crossfade (ease: power2.inOut)
+            const pDist = scaledProgress - i;
+            if (pDist <= -1) {
+              // Not yet entered
+              gsap.set(paraRefs.current[i], { opacity: 0, y: 20 });
+            } else if (pDist > -1 && pDist < 0) {
+              // Entering sequence
+              const progressIn = ease(pDist + 1);
+              gsap.set(paraRefs.current[i], { opacity: progressIn, y: 20 * (1 - progressIn) });
+            } else if (pDist >= 0 && pDist <= 1) {
+              // Leaving sequence
+              const progressOut = ease(pDist);
+              gsap.set(paraRefs.current[i], { opacity: 1 - progressOut, y: -20 * progressOut });
+            } else {
+              // Fully left
+              gsap.set(paraRefs.current[i], { opacity: 0, y: -20 });
+            }
+          });
         },
       });
-
-      tl.to(
-        leftTextRef.current,
-        { y: slideDistance, ease: "none", duration: 3 },
-        0
-      );
-
-      founders.forEach((_, i) => {
-        if (i === 0) return;
-        const stageStart = i - 1;
-
-        tl.to(
-          cardRefs.current[i - 1],
-          { y: "-40px", opacity: 0, ease: "none", duration: 0.5 },
-          stageStart
-        )
-          .fromTo(
-            cardRefs.current[i],
-            { y: "40px", opacity: 0 },
-            { y: "0px", opacity: 1, ease: "none", duration: 0.5 },
-            stageStart
-          )
-          .to(
-            paraRefs.current[i - 1],
-            { y: "-20px", opacity: 0, ease: "none", duration: 0.5 },
-            stageStart
-          )
-          .fromTo(
-            paraRefs.current[i],
-            { y: "20px", opacity: 0 },
-            { y: "0px", opacity: 1, ease: "none", duration: 0.5 },
-            stageStart
-          );
-      });
     },
-    { scope: sectionRef }
+    { scope: sectionRef } // Handles GSAP cleanup naturally
   );
 
   return (
     <div
       ref={sectionRef}
-      className="relative h-screen w-full overflow-hidden bg-[#FFFDF8]"
+      className="relative h-screen w-full overflow-hidden bg-[#FCFCFB]"
     >
-      {/* Left - Our Team heading, slides down across the pin */}
-      <div ref={leftTextRef} className="absolute top-1/4 left-16 max-w-xl z-20">
+      {/* Left - Horizontal padding left-48 */}
+      <div ref={leftTextRef} className="absolute top-1/4 lg:left-[20vw] md:left-[10vw] max-w-xl z-20">
         <p className="text-subheading uppercase font-light text-blue mb-4">
           Our Team
         </p>
@@ -121,12 +143,15 @@ export default function OurTeam() {
         </h2>
       </div>
 
-      {/* Right - stacked founder cards */}
-      <div ref={rightColumnRef} className="absolute top-1/4 right-16 w-64 z-20">
-        {/* Image - 2:3 aspect ratio */}
+      {/* Right - Switched to a flex column with a responsive gap for strict spacing */}
+      <div
+        ref={rightColumnRef}
+        className="absolute top-1/4 lg:right-[20vw] md:right-[10vw] w-72 z-20 flex flex-col gap-5"
+      >
+        {/* Image - .image-container class for accurate GSAP height measurement */}
         <div
-          className="relative w-full overflow-hidden"
-          style={{ aspectRatio: "2 / 3" }}
+          className="image-container relative w-full overflow-hidden"
+          style={{ aspectRatio: "4 / 5" }}
         >
           {founders.map((founder, i) => (
             <div
@@ -135,7 +160,10 @@ export default function OurTeam() {
                 cardRefs.current[i] = el;
               }}
               className="absolute inset-0"
-              style={{ opacity: i === 0 ? 1 : 0 }}
+              style={{
+                zIndex: i + 1,
+                clipPath: i === 0 ? "inset(0% 0% 0% 0%)" : "inset(100% 0% 0% 0%)",
+              }}
             >
               <div className="relative w-full h-full">
                 <Image
@@ -144,12 +172,13 @@ export default function OurTeam() {
                   fill
                   sizes="320px"
                   className="object-cover"
+                  onLoad={() => ScrollTrigger.refresh()} // Refresh triggers recalculation on layout completion
                 />
-                <div className="absolute bottom-0 left-0 right-0 px-6 py-5 flex justify-between items-end">
-                  <p className="text-white text-xs font-semibold uppercase leading-tight">
+                <div className="absolute bottom-5 left-4 right-4 px-6 py-5 flex justify-between items-end">
+                  <p className="text-white text-xl uppercase leading-tight w-[100px] font-[200] ">
                     {founder.name}
                   </p>
-                  <p className="text-white text-xs uppercase leading-tight text-right">
+                  <p className="text-white text-s uppercase leading-tight text-right w-[80px] [font-family:var(--font-abacaxi)] font-[100] ">
                     {founder.designation}
                   </p>
                 </div>
@@ -158,8 +187,8 @@ export default function OurTeam() {
           ))}
         </div>
 
-        {/* Paragraph */}
-        <div className="relative mt-16 overflow-hidden" style={{ height: "100px" }}>
+        {/* Paragraph - Removed fixed margin-top; relies on parent's gap for consistent spacing */}
+        <div className="relative overflow-hidden w-full" style={{ height: "90px" }}>
           {founders.map((founder, i) => (
             <p
               key={i}
@@ -175,10 +204,27 @@ export default function OurTeam() {
         </div>
 
         {/* Divider + button */}
-        <hr className="border-t border-grey/40 w-full mt-16 mb-8" />
-        <button className="border border-grey text-grey text-xs uppercase tracking-wide px-8 py-4">
-          Know More
-        </button>
+        <div className="flex flex-col items-start w-full gap-8">
+          <hr className="border-t border-[#666666]/40 w-full" />
+          <button
+            className="
+    flex items-center justify-center
+    w-[110px] h-[36px]
+    sm:w-[125px] sm:h-[38px]
+    md:w-[150px] md:h-[40px]
+    px-3 sm:px-4 md:px-5
+    text-[14px] sm:text-[16px] md:text-[18px]
+    border border-gray-300
+    bg-transparent text-gray-500
+    uppercase tracking-wider
+    rounded-none
+    transition-colors duration-300
+    hover:border-gray-400 hover:bg-black/5
+  "
+          >
+            Know More
+          </button>
+        </div>
       </div>
     </div>
   );
