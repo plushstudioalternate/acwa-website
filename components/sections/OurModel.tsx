@@ -12,124 +12,357 @@ const steps = [
   {
     number: "01",
     label: "Identify",
-    paragraph: "We evaluate distressed and stalled assets with recovery potential.",
+    paragraph:
+      "We evaluate distressed and stalled assets with recovery potential.",
     image: "/images/model-1.png",
-    imageStyle: { top: "250px", left: "80px" },
-    textStyle: { top: "450px", left: "380px", width: "240px" },
+
+    // Mobile -> Tablet -> Desktop
+    imageClass:
+      "top-[220px] left-[6vw] md:top-[250px] md:left-[8vw] lg:top-[250px] lg:left-[10vw]",
+
+    textClass:
+      "top-[300px] left-[52vw] w-[42vw] md:top-[400px] md:left-[25vw] md:w-[240px] lg:top-[450px] lg:left-[25vw] lg:w-[240px]",
   },
+
   {
     number: "02",
     label: "Enter",
     paragraph:
       "We structure legally viable entry routes through settlements, CIRP, partnerships, or strategic capital.",
     image: "/images/model-2.png",
-    imageStyle: { top: "270px", left: "960px" },
-    textStyle: { top: "650px", left: "960px", width: "260px" },
+
+    imageClass:
+      "top-[650px] right-[6vw] md:top-[620px] md:right-[10vw] lg:top-[270px] lg:right-[25vw]",
+
+    textClass:
+      "top-[930px] right-[6vw] w-[65vw] md:top-[900px] md:right-[10vw] md:w-[260px] lg:top-[600px] lg:right-[25vw] lg:w-[260px]",
   },
+
   {
     number: "03",
     label: "Execute",
     paragraph:
       "We restart movement through execution planning, funding, compliance, and operational control.",
     image: "/images/model-3.png",
-    imageStyle: { top: "940px", left: "20px" },
-    textStyle: { top: "980px", left: "320px", width: "260px" },
+
+    imageClass:
+      "top-[1150px] left-[6vw] md:top-[1100px] md:left-[5vw] lg:top-[940px] lg:left-[2vw]",
+
+    textClass:
+      "top-[1230px] left-[52vw] w-[42vw] md:top-[1250px] md:left-[42vw] md:w-[260px] lg:top-[1100px] lg:left-[17vw] lg:w-[260px]",
   },
+
   {
     number: "04",
     label: "Exit",
     paragraph:
       "We create structured exits through completion, monetization, or asset stabilization.",
     image: "/images/model-4.png",
-    imageStyle: { top: "1270px", left: "740px" },
-    textStyle: { top: "1300px", left: "1020px", width: "240px" },
+
+    imageClass:
+      "top-[1650px] right-[6vw] md:top-[1600px] md:right-[12vw] lg:top-[1270px] lg:right-[25vw]",
+
+    textClass:
+      "top-[1930px] right-[6vw] w-[65vw] md:top-[1880px] md:right-[12vw] md:w-[240px] lg:top-[1150px] lg:right-[10vw] lg:w-[240px]",
   },
 ];
 
 export default function OurModel() {
   const sectionRef = useRef<HTMLDivElement>(null);
+
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const textRefs = useRef<(HTMLDivElement | null)[]>([])
 
   useGSAP(
-  () => {
-    imageRefs.current.forEach((img) => {
-      if (!img) return;
-      gsap.to(img, {
-        yPercent: -15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: img,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
-        },
+    () => {
+      steps.forEach((_, index) => {
+        const image = imageRefs.current[index];
+        const text = textRefs.current[index];
+
+        if (!image || !text) return;
+
+        // SECOND ITEM: IMAGE + TEXT BOTH MOVE UP
+        if (index === 1) {
+          gsap.fromTo(
+            [image, text],
+            {
+              yPercent: 15,
+            },
+            {
+              yPercent: -15,
+              ease: "none",
+              scrollTrigger: {
+                trigger: image,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1,
+                invalidateOnRefresh: true,
+              },
+            }
+          );
+
+
+          return;
+        }
+
+
+        if (index === 3) {
+          // FOURTH IMAGE → UP
+          gsap.fromTo(
+            image,
+            {
+              yPercent: 15,
+            },
+            {
+              yPercent: -15,
+              ease: "none",
+              scrollTrigger: {
+                trigger: image,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1,
+                invalidateOnRefresh: true,
+              },
+            }
+          );
+
+          // FOURTH TEXT → DOWN
+          gsap.fromTo(
+            text,
+            {
+              yPercent: -15,
+            },
+            {
+              yPercent: 15,
+              ease: "none",
+              scrollTrigger: {
+                trigger: image,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1,
+                invalidateOnRefresh: true,
+              },
+            }
+          );
+
+          return;
+        }
+        // OTHER IMAGES MOVE DOWN
+        gsap.fromTo(
+          image,
+          {
+            yPercent: -15,
+          },
+          {
+            yPercent: 15,
+            ease: "none",
+            scrollTrigger: {
+              trigger: image,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
+
+        // OTHER TEXTS MOVE UP
+        gsap.fromTo(
+          text,
+          {
+            yPercent: 10,
+          },
+          {
+            yPercent: -10,
+            ease: "none",
+            scrollTrigger: {
+              trigger: image,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
       });
-    });
-  },
-  { scope: sectionRef }
-);
+    },
+    {
+      scope: sectionRef,
+    }
+  );
+
 
   return (
-    <div
+    <section
       ref={sectionRef}
-      className="relative w-full overflow-x-hidden bg-[#FFFDF8]"
-      style={{ height: "1600px" }}
+      className="
+        relative
+        w-full
+        h-[2400px]
+        md:h-[2600px]
+        lg:h-[1800px]
+
+        overflow-hidden
+
+        bg-[#FFFDF8]
+      "
     >
-      {/* Header */}
-      <div className="absolute top-12 left-16 z-20">
-        <p className="text-subheading uppercase font-light text-orange">
+      {/* ============================
+          HEADER
+      ============================ */}
+
+      <div
+        className="
+          absolute
+          top-6!
+          left-6
+          md:top-20!
+          md:left-14
+          lg:left-25
+          z-20
+        "
+      >
+        <p className="text-para uppercase font-light text-orange">
           Our Model
         </p>
       </div>
-      <div className="absolute top-12 right-16 max-w-xl text-right z-20">
-        <h2 className="text-heading font-normal text-orange leading-tight">
+
+      <div
+        className="
+          absolute
+
+          top-20!
+          left-6
+          right-8
+
+         
+
+          md:top-12
+          md:left-auto
+          md:right-12
+          md:max-w-md
+
+          lg:right-[12vw]
+          lg:max-w-xl
+
+          md:text-right
+
+          z-20
+        "
+      >
+        <h2
+          className="
+            text-subheading
+            md:text-heading
+            lg:text-heading
+            font-normal
+            text-orange
+            leading-tight
+          "
+        >
           ACWA focuses on unlocking value from projects.
         </h2>
       </div>
 
-      {/* Steps */}
-      {steps.map((step, i) => (
-        <div key={i}>
-          {/* Image - parallax */}
+      {/* ============================
+          STEPS
+      ============================ */}
+
+      {steps.map((step, index) => (
+
+        <div key={step.number}>
+          {/* IMAGE */}
+
           <div
-  ref={(el) => {
-    imageRefs.current[i] = el;
-  }}
-  className="absolute overflow-hidden"
-  style={{
-    top: step.imageStyle.top,
-    left: step.imageStyle.left,
-    width: "246px",
-    height: "316px",
-  }}
->
+            ref={(element) => {
+              imageRefs.current[index] = element;
+            }}
+            className={`
+              absolute
+
+              overflow-hidden
+
+              w-[150px]
+              h-[200px]
+
+              sm:w-[180px]
+              sm:h-[230px]
+
+              md:w-[220px]
+              md:h-[280px]
+
+              lg:w-[246px]
+              lg:h-[316px]
+
+              will-change-transform
+
+              ${step.imageClass}
+            `}
+          >
             <Image
               src={step.image}
               alt={step.label}
               fill
-              sizes="300px"
+              sizes="
+                (max-width: 640px) 150px,
+                (max-width: 768px) 180px,
+                (max-width: 1024px) 220px,
+                246px
+              "
               className="object-cover"
             />
           </div>
 
-          {/* Text block - normal scroll, no parallax */}
+          {/* TEXT */}
+
           <div
-            className="absolute"
-            style={{
-              top: step.textStyle.top,
-              left: step.textStyle.left,
-              width: step.textStyle.width,
+            ref={(element) => {
+              textRefs.current[index] = element
             }}
+            className={`
+              absolute
+
+              flex!
+              flex-col!
+              gap-8!
+
+              ${step.textClass}
+            `}
           >
-            <p className="text-grey text-sm mb-5">{step.number}</p>
-            <p className="text-subheading uppercase font-light text-grey mb-3">
+            <p className="text-grey text-xs md:text-sm mb-3 md:mb-5">
+              {step.number}
+            </p>
+
+            <p
+              className="
+                text-base
+                md:text-subheading
+                uppercase
+                font-light
+                text-2xl!
+                text-grey
+                mb-2
+                md:mb-3
+              "
+            >
               {step.label}
             </p>
-            <hr className="border-t border-grey/40 w-full mb-4" />
-            <p className="text-para font-normal text-grey">{step.paragraph}</p>
+
+            <hr className="border-t border-grey/40 w-full mb-3 md:mb-4" />
+
+            <p
+              className="
+                text-sm
+                md:text-para
+                font-light
+                text-grey
+              "
+            >
+              {step.paragraph}
+            </p>
           </div>
         </div>
       ))}
-    </div>
+    </section>
   );
 }

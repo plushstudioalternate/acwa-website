@@ -25,10 +25,11 @@ const SplitText = ({ text, className, wordClass = "" }: { text: string; classNam
 export default function Hero() {
     
     const containerRef = useRef<HTMLDivElement>(null);
+    const mediaContainerRef = useRef<HTMLDivElement>(null); 
     const videoRef = useRef<HTMLVideoElement>(null);
+    const fallbackImageRef = useRef<HTMLImageElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
     
-    // 1. ADDED THESE REFS FOR THE PARALLAX
     const fastRef = useRef<HTMLDivElement>(null);
     const slowRef = useRef<HTMLDivElement>(null);
 
@@ -50,23 +51,21 @@ export default function Hero() {
                 y: '0%',
                 rotation: 0,
                 opacity: 1,
-                stagger: 0.15,
                 ease: 'back.out(1.2)',
-                duration: 0.8,
+                duration: 0.4,
             })
                 .to({}, { duration: 0.6 })
                 .to(`${sentence} .twist-word`, {
                     y: '-120%',
                     rotation: -15,
                     opacity: 0,
-                    stagger: 0.1,
                     ease: 'power2.in',
-                    duration: 0.6,
+                    duration: 0.4,
                 });
         });
 
-        // Video Phase 1: 30px margins on all sides
-        tl.to(videoRef.current, {
+        // Phase 1: Animate the Media Wrapper (Full screen to 30px margins)
+        tl.to(mediaContainerRef.current, {
             top: '30px',
             left: '30px',
             width: 'calc(100vw - 60px)',
@@ -75,28 +74,53 @@ export default function Hero() {
             ease: 'power2.inOut',
         })
 
-            // Video Phase 2: Lock to right 40% with 40px gap
-            .to(videoRef.current, {
-                top: '25vh', 
-                left: '55vw', 
-                width: 'calc(45vw - 80px)', 
-                height: '100vh', 
-                duration: 1.5,
-                ease: 'power3.inOut',
-            })
-            .call(() => {
-                if (!videoRef.current || !tl.scrollTrigger) return;
+        // We add a label right before Phase 2 starts
+        .addLabel('startShrink')
 
-                if (tl.scrollTrigger.direction === 1) {
-                    videoRef.current.pause();
-                } else {
-                    videoRef.current.play();
+        // Phase 2: Lock the wrapper to the right (Takes 1.5 seconds)
+        .to(mediaContainerRef.current, {
+            top: '25vh', 
+            left: '55vw', 
+            width: 'calc(45vw - 80px)', 
+            height: '100vh', 
+            duration: 1.5,
+            ease: 'power3.inOut',
+        }, 'startShrink')
+            
+        // 1. FAST FADE: Image appears almost instantly (0.2s) when shrinking starts
+        .to(fallbackImageRef.current, {
+            opacity: 1,
+            duration: 2, 
+            ease: 'none',
+        }, 'startShrink')
+
+        // 2. Hide the video behind blur instantly as well
+        .to(videoRef.current, {
+            filter: 'blur(10px) brightness(0.8)',
+            duration: 2,
+        }, 'startShrink')
+
+       // 3. Pause the video AS SOON AS the 0.2s fade finishes
+        .call(() => {
+            if (!videoRef.current || !tl.scrollTrigger) return;
+
+            if (tl.scrollTrigger.direction === 1) {
+                // User is scrolling DOWN into the shrinked state
+                videoRef.current.pause();
+            } else {
+                // User is scrolling UP back to the unshrinked state
+                // If the video already finished playing previously, reset it to the start
+                if (videoRef.current.ended) {
+                    videoRef.current.currentTime = 0;
                 }
-            })
+                videoRef.current.play();
+            }
+        }, null, 'startShrink+=0.2')
 
-            // Header Reveal
-            .to(document.getElementById('global-header'), {
-                opacity: 1,
+        // Header Reveal
+        .to(document.getElementById('global-header'), {
+            opacity: 1,
+            // ... rest of your code
                 y: 0,
                 pointerEvents: 'auto',
                 duration: 1,
@@ -113,14 +137,14 @@ export default function Hero() {
                 duration: 0.8,
             }, '<');
 
-        // 2. FIXED PARALLAX LOGIC USING THE NEW REFS
+        // Parallax Effects
         if (scrollRef.current && fastRef.current && slowRef.current) {
             gsap.to(fastRef.current, {
-                y: -500, // Speed dialed in so it doesn't fly out of view abruptly
+                y: -500,
                 ease: 'none',
                 scrollTrigger: {
                     trigger: scrollRef.current,
-                    start: 'top bottom', // Fires exactly when you finish the 5000px pin
+                    start: 'top bottom',
                     end: 'bottom top',
                     scrub: true,
                 }
@@ -142,16 +166,31 @@ export default function Hero() {
         <>
             <section ref={containerRef} className="relative w-full h-[125vh] bg-[#FCFCFB] overflow-hidden">
 
-                <video
-                    ref={videoRef}
-                    className="absolute z-10 object-cover shadow-2xl"
+                <div 
+                    ref={mediaContainerRef} 
+                    className="absolute z-10 shadow-2xl overflow-hidden rounded-xl bg-black" 
                     style={{ top: 0, left: 0, width: '100vw', height: '100vh' }}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    src="https://www.pexels.com/download/video/38045847/"
-                />
+                >
+                    {/* The Video starts with 0 blur */}
+                    <video
+                        ref={videoRef}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        style={{ filter: 'blur(0px) brightness(1)' }}
+                        autoPlay
+                        muted
+                        
+                        playsInline
+                        src="/videos/heroVideo.mp4"
+                    />
+                    
+                    {/* The crisp image fades in on top */}
+                    <img
+                        ref={fallbackImageRef}
+                        src="/images/hero-bg.jpg" 
+                        alt="Hero background"
+                        className="absolute inset-0 w-full h-full object-cover opacity-0 z-10"
+                    />
+                </div>
 
                 <div className="absolute top-0 left-0 w-full h-screen z-20 flex flex-col items-center justify-center pointer-events-none text-[#FCFCFB] text-[16px] font-[300] text-center px-4 drop-shadow-lg tracking-wide">
                     <div className="sent-1 absolute"><SplitText text="This is the first sentence." /></div>
@@ -160,8 +199,6 @@ export default function Hero() {
                 </div>
 
                 <div className="absolute top-[15vh] left-[15vw] z-30 pointer-events-none w-[85vw] flex flex-col h-[100vh]">
-
-                    {/* 3. ATTACHED FAST REF */}
                     <div ref={fastRef} className="parallax-fast final-twist relative z-40 w-[65vw]">
                         <div className="mb-10">
                             <SplitText
@@ -173,7 +210,6 @@ export default function Hero() {
                         <div className="whitespace-nowrap leading-[1.1]">
                             <SplitText
                                 text="Reviving India’s"
-                                // Increased clamp cap to 12rem to guarantee overlap on wide screens
                                 wordClass="text-[#554FF1] text-[clamp(3rem,6vw,7rem)] font-medium"
                             />
                         </div>
@@ -187,7 +223,6 @@ export default function Hero() {
 
                     <div className="flex-grow"></div>
 
-                    {/* 4. ATTACHED SLOW REF & FIXED MATH FOR RIGHT ALIGNMENT */}
                     <div ref={slowRef} className="max-w-[450px] parallax-slow pointer-events-auto final-twist">
                         <div className="mb-8">
                             <SplitText
@@ -205,7 +240,6 @@ export default function Hero() {
                 </div>
             </section>
 
-            {/* This invisible trigger is critical. Do not delete it. */}
             <div ref={scrollRef} className="w-full h-[1px] invisible"></div>
         </>
     );

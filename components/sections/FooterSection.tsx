@@ -32,8 +32,9 @@ export default function FooterSection() {
 
       const apply = () => {
         // slides from (endOffset - travel) to endOffset as progress goes 0 → 1
+        const leftGap = 40;
         const x = endOffset - (1 - progress) * travel;
-        track.style.transform = `translate3d(${-x}px, 0, 0)`;
+        track.style.transform = `translate3d(${-x + leftGap}px, 0, 0)`;
       };
 
       /**
@@ -92,9 +93,9 @@ requestAnimationFrame(() => ScrollTrigger.refresh());
   );
 
   return (
-    <footer
+        <footer
       ref={footerRef}
-      className="relative flex h-[75dvh] min-h-[560px] w-full flex-col justify-between overflow-hidden bg-[#D0DCDC] pb-[7dvh]! pt-[5dvh]! text-[#0d3d22]"
+      className="relative flex h-[75dvh] min-h-[560px] w-full flex-col justify-between overflow-hidden bg-[#D0DCDC] pb-[7dvh]! pt-[5dvh]! text-[#005B36] px-6 md:px-0"
     >
       {/* ───────── Row 1 · "Talk to us." marquee ───────── */}
       <div className="w-full overflow-hidden">
@@ -102,7 +103,6 @@ requestAnimationFrame(() => ScrollTrigger.refresh());
           ref={marqueeTrackRef}
           className="relative w-max select-none whitespace-nowrap text-[11vw] font-light leading-[1.1] will-change-transform"
         >
-          {/* invisible single chunk, used only for measurement */}
           <span
             ref={measureRef}
             aria-hidden="true"
@@ -114,26 +114,26 @@ requestAnimationFrame(() => ScrollTrigger.refresh());
         </div>
       </div>
 
-      {/* ───────── Row 2 · founder block — 25% / 75% ───────── */}
-      <div className="grid w-full grid-cols-[25%_75%]">
-        {/* col 1 — clip-path mark, right-aligned inside its 25% column */}
-        <div className="flex justify-end pr-8!">
+     {/* ───────── Row 2 · founder block ───────── */}
+      <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-[25%_75%] md:gap-0 mt-10 md:mt-0">
+        {/* col 1 — Centered on mobile, right-aligned on desktop */}
+        <div className="flex justify-center md:justify-end md:pr-8!">
           <div
             style={{ clipPath: clipPathString }}
-            className="h-14 w-14 flex-shrink-0 bg-[#0d3d22]"
+            className="h-14 w-14 flex-shrink-0 bg-[#005B36]"
           />
         </div>
 
-        {/* col 2 — left-aligned, vertically stacked */}
-        <div className="flex flex-col items-start pt-0.5">
-          <p className="text-lg font-bold uppercase tracking-widest mt-2!">
+        {/* col 2 — Centered on mobile, left-aligned on desktop */}
+        <div className="flex flex-col items-center text-center md:items-start md:text-left md:pt-0.5">
+          <p className="mt-1! text-2xl font-bold uppercase tracking-widest">
             Ample Tiger
           </p>
-          <p className="mt-0.5 text-[11px] uppercase tracking-widest opacity-70 [font-family:var(--font-abacaxi)]!">
+          <p className="mt-0.5 font-semibold uppercase tracking-widest text-[12px] opacity-70 [font-family:var(--font-abacaxi)]!">
             Founder
           </p>
 
-          <p className="mt-7! text-lg font-[200] [font-family:var(--font-abacaxi)]">
+          <p className="mt-7! text-lg font-[400] [font-family:var(--font-abacaxi)]">
             &ldquo;Revival is responsibility.&rdquo;
           </p>
 
@@ -146,11 +146,12 @@ requestAnimationFrame(() => ScrollTrigger.refresh());
         </div>
       </div>
 
-      {/* ───────── Row 3 · socials + contact — 80% / 20% ───────── */}
-      <div className="grid w-full grid-cols-[80%_20%] pr-[3vw] text-sm [font-family:var(--font-abacaxi)]">
-        {/* col 1 — links are left-aligned, but the block sits at the end of the column */}
-        <div className="flex justify-end pr-14 font-[400]">
-          <ul className="flex flex-col items-start gap-y-2.5 pr-10!">
+      {/* ───────── Row 3 · socials + contact ───────── */}
+      <div className="grid w-full grid-cols-1 gap-10 text-sm md:grid-cols-[80%_20%] md:gap-0 md:pr-[3vw] mt-12 md:mt-0 [font-family:var(--font-abacaxi)]">
+        
+        {/* col 1 — Centered on mobile, right-aligned on desktop */}
+        <div className="flex justify-center font-[400] md:justify-end md:pr-14">
+          <ul className="flex flex-col items-center md:items-start gap-y-2.5 md:pr-10!">
             <li>
               <a href="#" target="_blank" rel="noopener noreferrer">
                 LinkedIn
@@ -169,8 +170,8 @@ requestAnimationFrame(() => ScrollTrigger.refresh());
           </ul>
         </div>
 
-        {/* col 2 — contact info, phone + email grouped, address spaced below */}
-        <div className="flex flex-col items-start pl-10! font-[400] [font-family:var(--font-abacaxi)]">
+        {/* col 2 — Centered on mobile, left-aligned on desktop */}
+        <div className="flex flex-col items-center text-center md:items-start md:text-left font-[400] md:pl-10! [font-family:var(--font-abacaxi)]">
           <a href="tel:+919811303960">+91 9811303960</a>
           <a href="mailto:info@acwa.co.in" className="mt-0.5">
             info@acwa.co.in

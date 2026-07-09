@@ -17,19 +17,19 @@ const founders = [
       "To become India's leading platform for real estate revival and project completion.",
   },
   {
-    image: "/images/project-miro-bg.png",
+    image: "/images/founder-1.png",
     name: "Founder Two",
     designation: "Co-Founder",
     paragraph: "Placeholder paragraph for founder two goes here.",
   },
   {
-    image: "/images/project-nyma-fg.png",
+    image: "/images/founder-1.png",
     name: "Founder Three",
     designation: "Head of Operations",
     paragraph: "Placeholder paragraph for founder three goes here.",
   },
   {
-    image: "/images/project-miro-bg.png",
+    image: "/images/founder-1.png",
     name: "Founder Four",
     designation: "Lead Architect",
     paragraph: "Placeholder paragraph for founder four goes here.",
@@ -51,10 +51,10 @@ export default function OurTeam() {
       // Calculate total movement distance dynamically
       const calculateDistance = () => {
         if (!leftTextRef.current || !rightColumnRef.current) return;
-        
+
         // Reset left heading transform to y: 0 so previous GSAP transforms do not affect the calculation
         gsap.set(leftTextRef.current, { y: 0 });
-        
+
         const leftRect = leftTextRef.current.getBoundingClientRect();
         const imageContainer = rightColumnRef.current.querySelector(".image-container") as HTMLElement | null;
         const imageRect = imageContainer?.getBoundingClientRect();
@@ -77,11 +77,22 @@ export default function OurTeam() {
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onRefresh: calculateDistance, // Recalculate measurements automatically when layout changes
+
+
         onUpdate: (self) => {
           const p = self.progress; // Normalized scroll progress (0 to 1)
 
           // 1. Progress left-side heading movement continuously
-          gsap.set(leftTextRef.current, { y: slideDistance * p });
+          if (window.innerWidth >= 1024) {
+            gsap.set(leftTextRef.current, {
+              y: slideDistance * p,
+            });
+          } else {
+            gsap.set(leftTextRef.current, {
+              y: 0,
+            });
+          }
+
 
           // 2. Progress right-side founder sequence continuously
           const totalTransitions = founders.length - 1;
@@ -133,12 +144,27 @@ export default function OurTeam() {
       className="relative h-screen w-full overflow-hidden bg-[#FCFCFB]"
     >
       {/* Left - Horizontal padding left-48 */}
-      <div ref={leftTextRef} className="absolute top-1/4 lg:left-[20vw] md:left-[10vw] max-w-xl z-20">
-        <p className="text-subheading uppercase font-light text-blue mb-4">
+      <div ref={leftTextRef} className="
+    absolute
+    top-[10vh]
+    left-8
+    right-8
+    max-w-xl
+    z-20
+
+    md:top-[10vh]
+    md:left-[18vw]
+    md:right-[18vw]
+
+    lg:top-1/4
+    lg:left-[20vw]
+    lg:right-auto
+  ">
+        <p className="text-para! lg:text-3xl! text-center lg:text-left md:text-subheading uppercase font-light text-[#9995f7] mb-4">
           Our Team
         </p>
-        <h2 className="text-heading font-normal text-blue leading-tight">
-          Lorem ipsum dolor amet, consectetur adipiscing elit. Sed eiusmod
+        <h2 className="text-subheading! lg:text-5xl! text-center lg:text-left pt-5! md:text-heading font-normal text-[#9995f7] leading-tight">
+          Lorem ipsum dolor amet,<br/> consectetur adipiscing <br/>elit. Sed eiusmod
           tempor
         </h2>
       </div>
@@ -146,7 +172,28 @@ export default function OurTeam() {
       {/* Right - Switched to a flex column with a responsive gap for strict spacing */}
       <div
         ref={rightColumnRef}
-        className="absolute top-1/4 lg:right-[20vw] md:right-[10vw] w-72 z-20 flex flex-col gap-5"
+        className="
+    absolute
+
+    top-[30vh]
+    left-1/2
+    -translate-x-1/2
+
+    w-[min(72vw,288px)]
+
+    z-20
+    flex
+    flex-col
+    gap-5
+
+    md:top-[40vh]
+    md:w-72
+
+    lg:top-1/4
+    lg:left-auto
+    lg:translate-x-0
+    lg:right-[20vw]
+  "
       >
         {/* Image - .image-container class for accurate GSAP height measurement */}
         <div
