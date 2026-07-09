@@ -115,7 +115,7 @@ export default function Hero() {
                 }
                 videoRef.current.play();
             }
-        }, null, 'startShrink+=0.2')
+        }, [], 'startShrink+=0.2')
 
         // Header Reveal
         .to(document.getElementById('global-header'), {
