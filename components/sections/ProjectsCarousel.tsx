@@ -126,7 +126,7 @@ export default function ProjectsCarousel() {
                                     {item.category}
                                 </span>
 
-                                <h2 className="text-5xl md:text-8xl  font-[100] max-w-[150px] md:max-w-[250px] tracking-tight ">
+                                <h2 className="text-5xl md:text-8xl -ml-[3px]! md:-ml-[8px]!  font-[100] max-w-[150px] md:max-w-[250px] tracking-tight ">
                                     {item.title}
                                 </h2>
 

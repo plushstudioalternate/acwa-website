@@ -8,7 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const PHRASE = "Talk to us.";
-const GAP = "\u00A0\u00A0\u00A0";
+const GAP = "\u00A0\u00A0";
 const CHUNK = PHRASE + GAP;
 const REPEATS = 14;
 

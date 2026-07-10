@@ -34,26 +34,35 @@ export default function Hero() {
     const slowRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: 'top top',
-                end: '+=5000',
-                scrub: 1,
-                pin: true,
-            }
-        });
+        let mm = gsap.matchMedia();
 
-        const sentences = ['.sent-1', '.sent-2', '.sent-3'];
+        mm.add({
+            isLargeDesktop: "(min-width: 1300px)",
+            isMedium: "(min-width: 768px) and (max-width: 1299px)",
+            isMobile: "(max-width: 767px)"
+        }, (context) => {
+            let { isLargeDesktop, isMedium } = context.conditions as { isLargeDesktop: boolean, isMedium: boolean, isMobile: boolean };
 
-        sentences.forEach((sentence) => {
-            tl.to(`${sentence} .twist-word`, {
-                y: '0%',
-                rotation: 0,
-                opacity: 1,
-                ease: 'back.out(1.2)',
-                duration: 0.4,
-            })
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: 'top top',
+                    end: '+=5000',
+                    scrub: 1,
+                    pin: true,
+                }
+            });
+
+            const sentences = ['.sent-1', '.sent-2', '.sent-3'];
+
+            sentences.forEach((sentence) => {
+                tl.to(`${sentence} .twist-word`, {
+                    y: '0%',
+                    rotation: 0,
+                    opacity: 1,
+                    ease: 'back.out(1.2)',
+                    duration: 0.4,
+                })
                 .to({}, { duration: 0.6 })
                 .to(`${sentence} .twist-word`, {
                     y: '-120%',
@@ -62,65 +71,82 @@ export default function Hero() {
                     ease: 'power2.in',
                     duration: 0.4,
                 });
-        });
+            });
 
-        // Phase 1: Animate the Media Wrapper (Full screen to 30px margins)
-        tl.to(mediaContainerRef.current, {
-            top: '30px',
-            left: '30px',
-            width: 'calc(100vw - 60px)',
-            height: 'calc(100vh - 60px)',
-            duration: 1.5,
-            ease: 'power2.inOut',
-        })
+            // Phase 1: Animate the Media Wrapper (Full screen to 30px margins)
+            tl.to(mediaContainerRef.current, {
+                top: '30px',
+                left: '30px',
+                width: 'calc(100vw - 60px)',
+                height: 'calc(100vh - 60px)',
+                duration: 1.5,
+                ease: 'power2.inOut',
+            })
+            .addLabel('startShrink');
 
-        // We add a label right before Phase 2 starts
-        .addLabel('startShrink')
-
-        // Phase 2: Lock the wrapper to the right (Takes 1.5 seconds)
-        .to(mediaContainerRef.current, {
-            top: '25vh', 
-            left: '55vw', 
-            width: 'calc(45vw - 80px)', 
-            height: '100vh', 
-            duration: 1.5,
-            ease: 'power3.inOut',
-        }, 'startShrink')
-            
-        // 1. FAST FADE: Image appears almost instantly (0.2s) when shrinking starts
-        .to(fallbackImageRef.current, {
-            opacity: 1,
-            duration: 2, 
-            ease: 'none',
-        }, 'startShrink')
-
-        // 2. Hide the video behind blur instantly as well
-        .to(videoRef.current, {
-            filter: 'blur(10px) brightness(0.8)',
-            duration: 2,
-        }, 'startShrink')
-
-       // 3. Pause the video AS SOON AS the 0.2s fade finishes
-        .call(() => {
-            if (!videoRef.current || !tl.scrollTrigger) return;
-
-            if (tl.scrollTrigger.direction === 1) {
-                // User is scrolling DOWN into the shrinked state
-                videoRef.current.pause();
+            // Phase 2: RESPONSIVE SHRINK LOGIC
+            if (isLargeDesktop) {
+                // Large Desktop (>= 1300px): Original right-side lock
+                tl.to(mediaContainerRef.current, {
+                    top: '25vh', 
+                    left: '55vw', 
+                    width: 'calc(45vw - 80px)', 
+                    height: '100vh', 
+                    duration: 1.5,
+                    ease: 'power3.inOut',
+                }, 'startShrink');
+            } else if (isMedium) {
+                // Medium screens (< 1300px and >= 768px): Wider image
+                tl.to(mediaContainerRef.current, {
+                    top: '25vh', 
+                    left: '45vw', // Shifted further left to make room
+                    width: 'calc(55vw - 40px)', // Takes up more width
+                    height: '100vh', 
+                    duration: 1.5,
+                    ease: 'power3.inOut',
+                }, 'startShrink');
             } else {
-                // User is scrolling UP back to the unshrinked state
-                // If the video already finished playing previously, reset it to the start
-                if (videoRef.current.ended) {
-                    videoRef.current.currentTime = 0;
-                }
-                videoRef.current.play();
+                // Mobile/Tablet (< 768px): Centered horizontal banner
+                tl.to(mediaContainerRef.current, {
+                    top: '40vh',     
+                    left: '10vw',    
+                    width: '80vw',   
+                    height: '35vh',  
+                    duration: 1.5,
+                    ease: 'power3.inOut',
+                }, 'startShrink');
             }
-        }, [], 'startShrink+=0.2')
+                
+            // 1. FAST FADE: Image appears almost instantly
+            tl.to(fallbackImageRef.current, {
+                opacity: 1,
+                duration: 2, 
+                ease: 'none',
+            }, 'startShrink')
 
-        // Header Reveal
-        .to(document.getElementById('global-header'), {
-            opacity: 1,
-            // ... rest of your code
+            // 2. Hide the video behind blur
+            .to(videoRef.current, {
+                filter: 'blur(10px) brightness(0.8)',
+                duration: 2,
+            }, 'startShrink')
+
+           // 3. Pause the video logic
+            .call(() => {
+                if (!videoRef.current || !tl.scrollTrigger) return;
+
+                if (tl.scrollTrigger.direction === 1) {
+                    videoRef.current.pause();
+                } else {
+                    if (videoRef.current.ended) {
+                        videoRef.current.currentTime = 0;
+                    }
+                    videoRef.current.play();
+                }
+            }, [], 'startShrink+=0.2')
+
+            // Header Reveal
+            .to(document.getElementById('global-header'), {
+                opacity: 1,
                 y: 0,
                 pointerEvents: 'auto',
                 duration: 1,
@@ -137,30 +163,31 @@ export default function Hero() {
                 duration: 0.8,
             }, '<');
 
-        // Parallax Effects
-        if (scrollRef.current && fastRef.current && slowRef.current) {
-            gsap.to(fastRef.current, {
-                y: -500,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: scrollRef.current,
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: true,
-                }
-            });
-            gsap.to(slowRef.current, {
-                y: -300,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: scrollRef.current,
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: true,
-                }
-            });
-        }
-    });
+            // Parallax Effects
+            if (scrollRef.current && fastRef.current && slowRef.current) {
+                gsap.to(fastRef.current, {
+                    y: -500,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: scrollRef.current,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: true,
+                    }
+                });
+                gsap.to(slowRef.current, {
+                    y: -300,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: scrollRef.current,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: true,
+                    }
+                });
+            }
+        });
+    }, { scope: containerRef });
 
     return (
         <>
@@ -168,7 +195,7 @@ export default function Hero() {
 
                 <div 
                     ref={mediaContainerRef} 
-                    className="absolute z-10 shadow-2xl overflow-hidden rounded-xl bg-black" 
+                    className="absolute z-10 shadow-2xl overflow-hidden bg-black" 
                     style={{ top: 0, left: 0, width: '100vw', height: '100vh' }}
                 >
                     {/* The Video starts with 0 blur */}
@@ -178,7 +205,6 @@ export default function Hero() {
                         style={{ filter: 'blur(0px) brightness(1)' }}
                         autoPlay
                         muted
-                        
                         playsInline
                         src="/videos/heroVideo.mp4"
                     />
@@ -198,25 +224,25 @@ export default function Hero() {
                     <div className="sent-3 absolute"><SplitText text="And the final statement." /></div>
                 </div>
 
-                <div className="absolute top-[15vh] left-[15vw] z-30 pointer-events-none w-[85vw] flex flex-col h-[100vh]">
+                <div className="absolute top-[15vh]   md:left-[3vw] lg:left-[15vw] left-[15vw] z-30 pointer-events-none w-[85vw] flex flex-col h-[100vh]">
                     <div ref={fastRef} className="parallax-fast final-twist relative z-40 w-[65vw]">
                         <div className="mb-10">
                             <SplitText
                                 text="Mission"
-                                wordClass="text-[#554FF1] font-[300] text-2xl tracking-widest uppercase"
+                                wordClass="text-[#554FF1] font-[300] text-[20px]! md:text-2xl tracking-widest uppercase"
                             />
                         </div>
 
                         <div className="whitespace-nowrap leading-[1.1]">
                             <SplitText
                                 text="Reviving India’s"
-                                wordClass="text-[#554FF1] text-[clamp(3rem,6vw,7rem)] font-medium"
+                                wordClass="text-[#554FF1]  text-[clamp(2rem,6vw,7rem)] font-medium"
                             />
                         </div>
                         <div className="whitespace-nowrap leading-[1.1]">
                             <SplitText
                                 text="Stalled Real Estate"
-                                wordClass="text-[#554FF1] text-[clamp(3rem,6vw,7rem)] font-medium"
+                                wordClass="text-[#554FF1] text-[clamp(2rem,6vw,7rem)] font-medium"
                             />
                         </div>
                     </div>
@@ -227,13 +253,13 @@ export default function Hero() {
                         <div className="mb-8">
                             <SplitText
                                 text="Our Philosophy"
-                                wordClass="text-[#669C86] font-[300] text-2xl tracking-widest uppercase py-8!"
+                                wordClass="text-[#669C86] font-[300] text-[20px]! md:text-2xl tracking-widest uppercase py-8!"
                             />
                         </div>
                         <div>
                             <SplitText
                                 text="India doesn't only need new real estate, it needs promised projects completed. Reviving existing developments is faster, smarter, and more valuable."
-                                wordClass="text-[#669C86] text-2xl leading-snug font-medium"
+                                wordClass="text-[#669C86] text=[18px]! md:text-2xl leading-snug font-medium"
                             />
                         </div>
                     </div>

@@ -10,26 +10,26 @@ gsap.registerPlugin(ScrollTrigger);
 
 const founders = [
   {
-    image: "/images/founder-1.png",
+    image: "/images/1.jpg",
     name: "Name of Founder",
     designation: "Senior Designer",
     paragraph:
       "To become India's leading platform for real estate revival and project completion.",
   },
   {
-    image: "/images/founder-1.png",
+    image: "/images/2.jpg",
     name: "Founder Two",
     designation: "Co-Founder",
     paragraph: "Placeholder paragraph for founder two goes here.",
   },
   {
-    image: "/images/founder-1.png",
+    image: "/images/3.jpg",
     name: "Founder Three",
     designation: "Head of Operations",
     paragraph: "Placeholder paragraph for founder three goes here.",
   },
   {
-    image: "/images/founder-1.png",
+    image: "/images/4.jpg",
     name: "Founder Four",
     designation: "Lead Architect",
     paragraph: "Placeholder paragraph for founder four goes here.",
@@ -151,7 +151,7 @@ export default function OurTeam() {
     right-8
     max-w-xl
     z-20
-
+    
     md:top-[10vh]
     md:left-[18vw]
     md:right-[18vw]
@@ -159,12 +159,14 @@ export default function OurTeam() {
     lg:top-1/4
     lg:left-[20vw]
     lg:right-auto
+
+    min-[1023px]:max-[1392px]:left-[5vw]!
   ">
-        <p className="text-para! lg:text-3xl! text-center lg:text-left md:text-subheading uppercase font-light text-[#9995f7] mb-4">
+        <p className="text-[14px] lg:text-3xl! text-center lg:text-left md:text-subheading uppercase font-light text-[#9995f7] mb-4">
           Our Team
         </p>
-        <h2 className="text-subheading! lg:text-5xl! text-center lg:text-left pt-5! md:text-heading font-normal text-[#9995f7] leading-tight">
-          Lorem ipsum dolor amet,<br/> consectetur adipiscing <br/>elit. Sed eiusmod
+        <h2 className="text-[14px] lg:text-5xl! text-center lg:text-center pt-5! md:text-3xl font-normal text-[#9995f7] leading-tight">
+          Lorem ipsum dolor amet,<br/>consectetur adipiscing<br/>elit. Sed eiusmod
           tempor
         </h2>
       </div>
@@ -184,7 +186,8 @@ export default function OurTeam() {
     z-20
     flex
     flex-col
-    gap-5
+    gap-3
+    md:gap-5
 
     md:top-[40vh]
     md:w-72
@@ -193,6 +196,8 @@ export default function OurTeam() {
     lg:left-auto
     lg:translate-x-0
     lg:right-[20vw]
+
+     min-[955px]:max-[1392px]:right-[5vw]!
   "
       >
         {/* Image - .image-container class for accurate GSAP height measurement */}
@@ -222,10 +227,10 @@ export default function OurTeam() {
                   onLoad={() => ScrollTrigger.refresh()} // Refresh triggers recalculation on layout completion
                 />
                 <div className="absolute bottom-5 left-4 right-4 px-6 py-5 flex justify-between items-end">
-                  <p className="text-white text-xl uppercase leading-tight w-[100px] font-[200] ">
+                  <p className="text-white text-[12px] md:text-xl uppercase leading-tight w-[100px] font-[200] ">
                     {founder.name}
                   </p>
-                  <p className="text-white text-s uppercase leading-tight text-right w-[80px] [font-family:var(--font-abacaxi)] font-[100] ">
+                  <p className="text-white text-[12px] md:text-s uppercase leading-tight text-right w-[80px] [font-family:var(--font-abacaxi)] font-[100]">
                     {founder.designation}
                   </p>
                 </div>
@@ -235,14 +240,14 @@ export default function OurTeam() {
         </div>
 
         {/* Paragraph - Removed fixed margin-top; relies on parent's gap for consistent spacing */}
-        <div className="relative overflow-hidden w-full" style={{ height: "90px" }}>
+       <div className="relative overflow-hidden w-full h-[40px] md:h-[90px]">
           {founders.map((founder, i) => (
             <p
               key={i}
               ref={(el) => {
                 paraRefs.current[i] = el;
               }}
-              className="absolute inset-0 text-para font-normal text-grey"
+              className="absolute inset-0 text-[12px] [font-family:var(--font-abacaxi)] md:text-para font-normal text-grey"
               style={{ opacity: i === 0 ? 1 : 0 }}
             >
               {founder.paragraph}
@@ -251,7 +256,7 @@ export default function OurTeam() {
         </div>
 
         {/* Divider + button */}
-        <div className="flex flex-col items-start w-full gap-8">
+        <div className="flex flex-col items-start w-full gap-6  md:gap-8 ">
           <hr className="border-t border-[#666666]/40 w-full" />
           <button
             className="
@@ -260,6 +265,7 @@ export default function OurTeam() {
     sm:w-[125px] sm:h-[38px]
     md:w-[150px] md:h-[40px]
     px-3 sm:px-4 md:px-5
+    [font-family:var(--font-abacaxi)]
     text-[14px] sm:text-[16px] md:text-[18px]
     border border-gray-300
     bg-transparent text-gray-500

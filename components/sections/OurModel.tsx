@@ -16,12 +16,52 @@ const steps = [
       "We evaluate distressed and stalled assets with recovery potential.",
     image: "/images/model-1.png",
 
-    // Mobile -> Tablet -> Desktop
-    imageClass:
-      "top-[220px] left-[6vw] md:top-[250px] md:left-[8vw] lg:top-[250px] lg:left-[10vw]",
+    imageClass: `
+      top-[220px]
+      left-[6vw]
 
-    textClass:
-      "top-[300px] left-[52vw] w-[42vw] md:top-[400px] md:left-[25vw] md:w-[240px] lg:top-[450px] lg:left-[25vw] lg:w-[240px]",
+      sm:top-[260px]
+      sm:left-[6vw]
+
+      md:top-[280px]
+      md:left-[8vw]
+
+      lg:top-[250px]
+      lg:left-[8vw]
+
+      xl:top-[250px]
+      xl:left-[12vw]
+
+      2xl:top-[250px]
+      2xl:left-[10vw]
+    `,
+
+    textClass: `
+      top-[300px]
+      left-[52vw]
+      w-[42vw]
+
+      sm:top-[330px]
+      sm:left-[52vw]
+      sm:w-[38vw]
+
+      md:top-[380px]
+      md:left-[40vw]
+      md:w-[280px]
+
+      lg:top-[420px]
+      lg:left-[32vw]
+      lg:w-[240px]
+
+      xl:top-[450px]
+      xl:left-[32vw]
+      xl:w-[240px]
+
+      2xl:top-[450px]
+      2xl:left-[27vw]
+      2xl:w-[240px]
+      min-[1688px]:left-[25vw]!
+    `,
   },
 
   {
@@ -31,11 +71,51 @@ const steps = [
       "We structure legally viable entry routes through settlements, CIRP, partnerships, or strategic capital.",
     image: "/images/model-2.png",
 
-    imageClass:
-      "top-[650px] right-[6vw] md:top-[620px] md:right-[10vw] lg:top-[270px] lg:right-[25vw]",
+    imageClass: `
+      top-[650px]
+      right-[6vw]
 
-    textClass:
-      "top-[930px] right-[6vw] w-[65vw] md:top-[900px] md:right-[10vw] md:w-[260px] lg:top-[600px] lg:right-[25vw] lg:w-[260px]",
+      sm:top-[650px]
+      sm:right-[6vw]
+
+      md:top-[650px]
+      md:right-[8vw]
+
+      lg:top-[270px]
+      lg:right-[8vw]
+
+      xl:top-[270px]
+      xl:right-[12vw]
+
+      2xl:top-[270px]
+      2xl:right-[25vw]
+    `,
+
+    textClass: `
+      top-[900px]
+      right-[6vw]
+      w-[65vw]
+
+      sm:top-[720px]
+      sm:right-[52vw]
+      sm:w-[38vw]
+
+      md:top-[750px]
+      md:right-[40vw]
+      md:w-[280px]
+
+      lg:top-[600px]
+      lg:right-[8vw]
+      lg:w-[260px]
+
+      xl:top-[600px]
+      xl:right-[12vw]
+      xl:w-[260px]
+
+      2xl:top-[600px]
+      2xl:right-[25vw]
+      2xl:w-[260px]
+    `,
   },
 
   {
@@ -45,11 +125,52 @@ const steps = [
       "We restart movement through execution planning, funding, compliance, and operational control.",
     image: "/images/model-3.png",
 
-    imageClass:
-      "top-[1150px] left-[6vw] md:top-[1100px] md:left-[5vw] lg:top-[940px] lg:left-[2vw]",
+    imageClass: `
+      top-[1150px]
+      left-[6vw]
 
-    textClass:
-      "top-[1230px] left-[52vw] w-[42vw] md:top-[1250px] md:left-[42vw] md:w-[260px] lg:top-[1100px] lg:left-[17vw] lg:w-[260px]",
+      sm:top-[1050px]
+      sm:left-[6vw]
+
+      md:top-[1080px]
+      md:left-[8vw]
+
+      lg:top-[940px]
+      lg:left-[4vw]
+
+      xl:top-[940px]
+      xl:left-[5vw]
+
+      2xl:top-[940px]
+      2xl:left-[2vw]
+    `,
+
+    textClass: `
+      top-[1230px]
+      left-[52vw]
+      w-[42vw]
+
+      sm:top-[1120px]
+      sm:left-[52vw]
+      sm:w-[38vw]
+
+      md:top-[1180px]
+      md:left-[40vw]
+      md:w-[280px]
+
+      lg:top-[1100px]
+      lg:left-[27vw]
+      lg:w-[260px]
+
+      xl:top-[1100px]
+      xl:left-[25vw]
+      xl:w-[260px]
+
+      2xl:top-[1100px]
+    2xl:left-[20vw]
+      2xl:w-[260px]
+      min-[1688px]:left-[17vw]!
+    `,
   },
 
   {
@@ -59,19 +180,63 @@ const steps = [
       "We create structured exits through completion, monetization, or asset stabilization.",
     image: "/images/model-4.png",
 
-    imageClass:
-      "top-[1650px] right-[6vw] md:top-[1600px] md:right-[12vw] lg:top-[1270px] lg:right-[25vw]",
+    imageClass: `
+      top-[1650px]
+      right-[6vw]
 
-    textClass:
-      "top-[1930px] right-[6vw] w-[65vw] md:top-[1880px] md:right-[12vw] md:w-[240px] lg:top-[1150px] lg:right-[10vw] lg:w-[240px]",
+      sm:top-[1450px]
+      sm:right-[6vw]
+
+      md:top-[1500px]
+      md:right-[8vw]
+
+      lg:top-[1270px]
+      lg:right-[25vw]
+
+      xl:top-[1270px]
+      xl:right-[28vw]
+
+      2xl:top-[1270px]
+      2xl:right-[25vw]
+
+    
+    `,
+
+    textClass: `
+      top-[1930px]
+      right-[6vw]
+      w-[65vw]
+
+      sm:top-[1520px]
+      sm:right-[52vw]
+      sm:w-[38vw]
+
+      md:top-[1600px]
+      md:right-[40vw]
+      md:w-[280px]
+
+      lg:top-[1130px]
+      lg:right-[2vw]
+      lg:w-[240px]
+
+      xl:top-[1150px]
+      xl:right-[8vw]
+      xl:w-[240px]
+    
+      2xl:top-[1150px]
+      
+      2xl:w-[240px]
+
+       min-[1688px]:right-[10vw]!
+    `,
   },
 ];
 
 export default function OurModel() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const textRefs = useRef<(HTMLDivElement | null)[]>([])
+  const textRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useGSAP(
     () => {
@@ -81,7 +246,13 @@ export default function OurModel() {
 
         if (!image || !text) return;
 
-        // SECOND ITEM: IMAGE + TEXT BOTH MOVE UP
+        /*
+        ============================================
+        STEP 02
+        IMAGE + TEXT MOVE UP
+        ============================================
+        */
+
         if (index === 1) {
           gsap.fromTo(
             [image, text],
@@ -91,6 +262,7 @@ export default function OurModel() {
             {
               yPercent: -15,
               ease: "none",
+
               scrollTrigger: {
                 trigger: image,
                 start: "top bottom",
@@ -101,13 +273,18 @@ export default function OurModel() {
             }
           );
 
-
           return;
         }
 
+        /*
+        ============================================
+        STEP 04
+        IMAGE MOVES UP
+        TEXT MOVES DOWN
+        ============================================
+        */
 
         if (index === 3) {
-          // FOURTH IMAGE → UP
           gsap.fromTo(
             image,
             {
@@ -116,6 +293,7 @@ export default function OurModel() {
             {
               yPercent: -15,
               ease: "none",
+
               scrollTrigger: {
                 trigger: image,
                 start: "top bottom",
@@ -126,7 +304,6 @@ export default function OurModel() {
             }
           );
 
-          // FOURTH TEXT → DOWN
           gsap.fromTo(
             text,
             {
@@ -135,6 +312,7 @@ export default function OurModel() {
             {
               yPercent: 15,
               ease: "none",
+
               scrollTrigger: {
                 trigger: image,
                 start: "top bottom",
@@ -147,7 +325,15 @@ export default function OurModel() {
 
           return;
         }
-        // OTHER IMAGES MOVE DOWN
+
+        /*
+        ============================================
+        STEP 01 + STEP 03
+        IMAGE MOVES DOWN
+        TEXT MOVES UP
+        ============================================
+        */
+
         gsap.fromTo(
           image,
           {
@@ -156,6 +342,7 @@ export default function OurModel() {
           {
             yPercent: 15,
             ease: "none",
+
             scrollTrigger: {
               trigger: image,
               start: "top bottom",
@@ -166,7 +353,6 @@ export default function OurModel() {
           }
         );
 
-        // OTHER TEXTS MOVE UP
         gsap.fromTo(
           text,
           {
@@ -175,6 +361,7 @@ export default function OurModel() {
           {
             yPercent: -10,
             ease: "none",
+
             scrollTrigger: {
               trigger: image,
               start: "top bottom",
@@ -185,12 +372,13 @@ export default function OurModel() {
           }
         );
       });
+
+      ScrollTrigger.refresh();
     },
     {
       scope: sectionRef,
     }
   );
-
 
   return (
     <section
@@ -198,27 +386,45 @@ export default function OurModel() {
       className="
         relative
         w-full
+
         h-[2400px]
-        md:h-[2600px]
+
+        sm:h-[1900px]
+
+        md:h-[2100px]
+
         lg:h-[1800px]
+
+        xl:h-[1800px]
+
+        2xl:h-[1800px]
 
         overflow-hidden
 
         bg-[#FFFDF8]
       "
     >
-      {/* ============================
-          HEADER
-      ============================ */}
+      {/* HEADER */}
 
       <div
         className="
           absolute
-          top-6!
+
+          top-6
           left-6
-          md:top-20!
+
+          sm:top-12
+          sm:left-10
+
+          md:top-20
           md:left-14
-          lg:left-25
+
+          lg:left-20
+
+          xl:left-24
+
+          2xl:left-25
+
           z-20
         "
       >
@@ -227,25 +433,33 @@ export default function OurModel() {
         </p>
       </div>
 
+      {/* MAIN HEADING */}
+
       <div
         className="
           absolute
 
-          top-20!
+          top-20
           left-6
           right-8
 
-         
+          sm:top-20
+          sm:left-auto
+          sm:right-10
+          sm:max-w-[420px]
+          sm:text-right
 
           md:top-12
-          md:left-auto
           md:right-12
           md:max-w-md
 
-          lg:right-[12vw]
-          lg:max-w-xl
+          lg:right-[8vw]
+          lg:max-w-lg
 
-          md:text-right
+          xl:right-[10vw]
+          xl:max-w-xl
+
+          2xl:right-[12vw]
 
           z-20
         "
@@ -253,8 +467,11 @@ export default function OurModel() {
         <h2
           className="
             text-subheading
+
+            sm:text-[22px]
+
             md:text-heading
-            lg:text-heading
+
             font-normal
             text-orange
             leading-tight
@@ -264,12 +481,9 @@ export default function OurModel() {
         </h2>
       </div>
 
-      {/* ============================
-          STEPS
-      ============================ */}
+      {/* STEPS */}
 
       {steps.map((step, index) => (
-
         <div key={step.number}>
           {/* IMAGE */}
 
@@ -291,8 +505,14 @@ export default function OurModel() {
               md:w-[220px]
               md:h-[280px]
 
-              lg:w-[246px]
-              lg:h-[316px]
+              lg:w-[220px]
+              lg:h-[280px]
+
+              xl:w-[230px]
+              xl:h-[295px]
+
+              2xl:w-[246px]
+              2xl:h-[316px]
 
               will-change-transform
 
@@ -304,9 +524,10 @@ export default function OurModel() {
               alt={step.label}
               fill
               sizes="
-                (max-width: 640px) 150px,
-                (max-width: 768px) 180px,
-                (max-width: 1024px) 220px,
+                (max-width: 639px) 150px,
+                (max-width: 767px) 180px,
+                (max-width: 1279px) 220px,
+                (max-width: 1535px) 230px,
                 246px
               "
               className="object-cover"
@@ -317,45 +538,93 @@ export default function OurModel() {
 
           <div
             ref={(element) => {
-              textRefs.current[index] = element
+              textRefs.current[index] = element;
             }}
             className={`
               absolute
 
-              flex!
-              flex-col!
-              gap-8!
+              cursor-pointer
+
+              group
+
+              flex
+              flex-col
+
+              gap-3
+
+              md:gap-4
+
+              will-change-transform
 
               ${step.textClass}
             `}
           >
-            <p className="text-grey text-xs md:text-sm mb-3 md:mb-5">
+            <p
+              className="
+                text-xs
+                md:text-sm
+
+                font-light
+
+                text-grey
+                group-hover:text-orange
+
+                transition-colors
+                duration-300
+              "
+            >
               {step.number}
             </p>
 
             <p
               className="
                 text-base
-                md:text-subheading
+
+                sm:text-xl
+
+                md:text-2xl
+
                 uppercase
+
                 font-light
-                text-2xl!
+                
                 text-grey
-                mb-2
-                md:mb-3
+                group-hover:text-orange
+
+                transition-colors
+                duration-300
               "
             >
               {step.label}
             </p>
 
-            <hr className="border-t border-grey/40 w-full mb-3 md:mb-4" />
+            <hr
+              className="
+                w-full
+
+                border-t
+                border-grey/40
+
+                group-hover:border-orange
+
+                transition-colors
+                duration-300
+              "
+            />
 
             <p
               className="
                 text-sm
+
                 md:text-para
+
                 font-light
+                  [font-family:var(--font-abacaxi)]
                 text-grey
+                group-hover:text-orange
+
+                transition-colors
+                duration-300
               "
             >
               {step.paragraph}
