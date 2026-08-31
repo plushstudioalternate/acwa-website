@@ -15,9 +15,9 @@ export default function Header() {
         priority
       />
       <nav className="flex text-sm tracking-wide uppercase font-normal text-blue">
-        <a href="#contact" className="hover:opacity-70 transition-opacity">
-          Contact Us
-        </a>
+        <a href="/contact" className="hover:opacity-70 transition-opacity">
+  Contact Us
+</a>
       </nav>
     </header>
   );

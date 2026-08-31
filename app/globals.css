@@ -55,3 +55,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: var(--font-nippo);
 }
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: inline-block;
+  animation: marquee 18s linear infinite;
+}

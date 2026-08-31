@@ -79,7 +79,7 @@ export default function FooterSection() {
   return (
     <footer
       ref={footerRef}
-      className="relative flex h-[75dvh] min-h-[560px] w-full flex-col justify-between overflow-hidden bg-[#D0DCDC] pb-[7dvh]! pt-[5dvh]! text-[#005B36] px-6 md:px-0"
+      className="relative flex h-auto md:h-[75dvh] min-h-[560px] md:min-h-[560px] w-full flex-col justify-start md:justify-between overflow-hidden bg-[#D0DCDC] pb-[7dvh]! pt-[5dvh]! text-[#005B36] px-6 md:px-0"
     >
       {/* ───────── Row 1 · "Talk to us." marquee ───────── */}
       <div className="w-full overflow-hidden">
@@ -99,7 +99,7 @@ export default function FooterSection() {
       </div>
 
       {/* ───────── Row 2 · founder block ───────── */}
-      <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-[25%_75%] md:gap-0 mt-10 md:mt-0">
+      <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-[25%_75%] md:gap-0 mt-64 md:mt-0">
         {/* col 1 */}
         <div className="flex justify-center md:justify-end md:pr-8!">
           <div
@@ -119,7 +119,7 @@ export default function FooterSection() {
           <p className="mt-7! text-lg font-[400] [font-family:var(--font-abacaxi)]">
             &ldquo;Revival is responsibility.&rdquo;
           </p>
-          
+
             <a href="#" className="mt-10! pb-0.5 text-[12px] font-semibold uppercase tracking-widest">
   Get in touch
 </a>
@@ -133,17 +133,29 @@ export default function FooterSection() {
         <div className="flex justify-center font-[400] md:justify-end">
           <ul className="flex flex-col items-center md:items-start gap-y-2.5">
             <li>
-              <a href="#" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://in.linkedin.com/company/acwa-reviving-real-estate"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 LinkedIn
               </a>
             </li>
             <li>
-              <a href="#" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.instagram.com/acwa.in?igsh=MWoxZmg3ZGJzbnhl&igsi=MWoxZmg3ZGJzbnhl"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Instagram
               </a>
             </li>
             <li>
-              <a href="#" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://wa.me/919811303960"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 WhatsApp
               </a>
             </li>
@@ -156,7 +168,13 @@ export default function FooterSection() {
           <a href="mailto:info@acwa.co.in">
             info@acwa.co.in
           </a>
-          <p>A-152, sector 136, Noida</p>
+          <a
+            href="https://maps.app.goo.gl/EL4VEydP4GK5MqMh8?g_st=iw"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            A-152, sector 136, Noida
+          </a>
         </div>
       </div>
     </footer>
