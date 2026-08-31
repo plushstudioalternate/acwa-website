@@ -219,9 +219,9 @@ export default function Hero() {
                 </div>
 
                 <div className="absolute top-0 left-0 w-full h-screen z-20 flex flex-col items-center justify-center pointer-events-none text-[#FCFCFB] text-[16px] font-[300] text-center px-4 drop-shadow-lg tracking-wide">
-                    <div className="sent-1 absolute"><SplitText text="This is the first sentence." /></div>
-                    <div className="sent-2 absolute"><SplitText text="Here comes the second one." /></div>
-                    <div className="sent-3 absolute"><SplitText text="And the final statement." /></div>
+                    <div className="sent-1 absolute w-[80vw] text-center"><SplitText text="We carry forward the dreams of homebuyers." /></div>
+<div className="sent-2 absolute w-[80vw] text-center"><SplitText text="The effort of builders who ran out of time or cash." /></div>
+<div className="sent-3 absolute w-[80vw] text-center"><SplitText text="And the hopes of communities waiting for progress." /></div>
                 </div>
 
                 <div className="absolute top-[15vh]   md:left-[3vw] lg:left-[15vw] left-[15vw] z-30 pointer-events-none w-[85vw] flex flex-col h-[100vh]">
