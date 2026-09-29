@@ -16,31 +16,56 @@ export default function HeroPhilosophy() {
 
   useGSAP(
     () => {
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "bottom bottom",
-          end: "+=100%",
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-        },
-      })
-        .to(
-          imageWrapRef.current,
-          { left: "0%", width: "100%", ease: "none", duration: 1 },
-          0
-        )
-        .to(
-          headingRef.current,
-          { x: "-100%", opacity: 0, ease: "none", duration: 1 },
-          0
-        )
-        .to(
-          philosophyRef.current,
-          { x: "-100%", opacity: 0, ease: "none", duration: 1 },
-          0
-        );
+      const mm = gsap.matchMedia();
+
+      const createTimeline = () =>
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "bottom bottom",
+            end: "+=100%",
+            scrub: 1,
+            pin: true,
+            anticipatePin: 1,
+          },
+        });
+
+      // Desktop: image expands, heading + philosophy slide out
+      mm.add("(min-width: 768px)", () => {
+        createTimeline()
+          .to(
+            imageWrapRef.current,
+            { left: "0%", width: "100%", ease: "none", duration: 1 },
+            0
+          )
+          .to(
+            headingRef.current,
+            { x: "-100%", opacity: 0, ease: "none", duration: 1 },
+            0
+          )
+          .to(
+            philosophyRef.current,
+            { x: "-100%", opacity: 0, ease: "none", duration: 1 },
+            0
+          );
+      });
+
+      // Mobile: philosophy stays centered (no x animation on it)
+      mm.add("(max-width: 767px)", () => {
+        createTimeline()
+          .to(
+            imageWrapRef.current,
+            { left: "0%", width: "100%", ease: "none", duration: 1 },
+            0
+          )
+          .to(
+            headingRef.current,
+            { x: "-100%", opacity: 0, ease: "none", duration: 1 },
+            0
+          );
+      });
+
+      return () => mm.revert();
     },
     { scope: sectionRef }
   );
@@ -83,16 +108,16 @@ export default function HeroPhilosophy() {
       {/* Philosophy text — bottom aligned with image, pushed further left */}
       <div
         ref={philosophyRef}
-        className="absolute bottom-12 left-16 max-w-md z-20"
+        className="absolute top-[290px] left-1/2 -translate-x-1/2 w-[72%] max-w-md z-20 text-center md:bottom-12 md:top-auto md:left-16 md:translate-x-0 md:w-auto md:text-left"
       >
         <p className="text-subheading uppercase font-light text-green mb-4">
           Our Philosophy
         </p>
-        <p className="text-para font-normal text-green">
-          India doesn&apos;t only need new real estate, it needs promised
-          projects completed. Reviving existing developments is faster,
-          smarter, and more valuable.
-        </p>
+        <p className="text-para font-normal text-green !text-center md:!text-left">
+  India doesn&apos;t only need new real estate, it needs promised
+  projects completed. Reviving existing developments is faster,
+  smarter, and more valuable.
+</p>
       </div>
     </div>
   );
