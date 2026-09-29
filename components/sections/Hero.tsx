@@ -207,7 +207,7 @@ export default function Hero() {
                     {/* Constant Hero Background Image */}
                     <img
                         ref={fallbackImageRef}
-                        src="/images/hero-bg.jpg"
+                        src="/images/acwa-building.png"
                         alt="Hero background"
                         className="absolute inset-0 w-full h-full object-cover opacity-100 z-10"
                     />
@@ -263,22 +263,29 @@ export default function Hero() {
 
                     <div className="flex-grow"></div>
 
+                    {/*
+                      Philosophy block, text centered on all screens.
+                      Mobile (<768px): 80vw wide, shifted -7.5vw so it is centered on the SCREEN
+                                       (parent starts at 15vw and is 85vw wide, so its center is 57.5vw).
+                      Medium (768-1023px): left-aligned block, 40vw wide so it never overlaps the image.
+                      Desktop (>=1024px): left-aligned block, 450px wide, nudged left by 5vw.
+                    */}
                     <div
-    ref={slowRef}
-    className="max-w-[450px] w-full mx-auto parallax-slow pointer-events-auto final-twist lg:mx-0 lg:-translate-x-[5vw]"
->
+                        ref={slowRef}
+                        className="w-[80vw] max-w-[450px] mx-auto -translate-x-[7.5vw] text-center parallax-slow pointer-events-auto final-twist md:mx-0 md:translate-x-0 md:w-[40vw] lg:w-full lg:-translate-x-[5vw]"
+                    >
 
-                        <div className="mb-8">
+                        <div className="mb-8 text-center">
                             <SplitText
                                 text="Our Philosophy"
-                                wordClass="text-[#669C86] font-[300] text-[20px]! md:text-2xl tracking-widest uppercase py-8!"
+                                wordClass="text-[#669C86] font-[300] text-[20px]! md:text-2xl tracking-widest uppercase"
                             />
                         </div>
 
-                        <div>
+                        <div className="text-center">
                             <SplitText
                                 text="India doesn't only need new real estate, it needs promised projects completed. Reviving existing developments is faster, smarter, and more valuable."
-                                wordClass="text-[#669C86] text=[18px]! md:text-2xl leading-snug font-medium"
+                                wordClass="text-[#669C86] text-[18px]! md:text-2xl leading-snug font-medium"
                             />
                         </div>
 

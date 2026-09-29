@@ -106,19 +106,20 @@ export default function HeroPhilosophy() {
       </div>
 
       {/* Philosophy text — bottom aligned with image, pushed further left */}
-      <div
-        ref={philosophyRef}
-        className="absolute top-[290px] left-1/2 -translate-x-1/2 w-[72%] max-w-md z-20 text-center md:bottom-12 md:top-auto md:left-16 md:translate-x-0 md:w-auto md:text-left"
-      >
-        <p className="text-subheading uppercase font-light text-green mb-4">
-          Our Philosophy
-        </p>
-        <p className="text-para font-normal text-green !text-center md:!text-left">
-  India doesn&apos;t only need new real estate, it needs promised
-  projects completed. Reviving existing developments is faster,
-  smarter, and more valuable.
-</p>
-      </div>
+   {/* Philosophy text: centered on all screen sizes */}
+<div
+  ref={philosophyRef}
+  className="absolute top-[290px] left-1/2 -translate-x-1/2 w-[72%] max-w-md z-20 text-center md:bottom-12 md:top-auto md:left-16 md:translate-x-0 md:w-[28rem] md:max-w-none"
+>
+  <p className="text-subheading uppercase font-light text-green mb-4 text-center">
+    Our Philosophy
+  </p>
+  <p className="text-para font-normal text-green !text-center">
+    India doesn&apos;t only need new real estate, it needs promised
+    projects completed. Reviving existing developments is faster,
+    smarter, and more valuable.
+  </p>
+</div>
     </div>
   );
 }

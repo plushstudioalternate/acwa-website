@@ -395,7 +395,7 @@ export default function OurModel() {
         relative
         w-full
 
-        h-[2400px]
+        h-[2000px]
 
         sm:h-[1900px]
 

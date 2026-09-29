@@ -35,7 +35,7 @@ export default function FullBleedReveal() {
   return (
     <div
       ref={sectionRef}
-      className="relative h-[60dvh] w-full overflow-hidden bg-[#FFFDF8]"
+      className="relative -mt-[100px] md:mt-0 h-[60dvh] w-full overflow-hidden bg-[#FFFDF8]"
     >
       <div
         ref={imageWrapRef}
