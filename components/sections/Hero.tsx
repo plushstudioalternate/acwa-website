@@ -235,10 +235,10 @@ export default function Hero() {
 
                     <div
                         ref={fastRef}
-                        className="parallax-fast final-twist relative z-40 w-[65vw]"
+                        className="parallax-fast final-twist relative z-40 w-[65vw] max-md:text-center md:text-left"
                     >
 
-                        <div className="mb-10">
+                        <div className="mb-3 md:mb-4">
                             <SplitText
                                 text="Mission"
                                 wordClass="text-[#554FF1] font-[300] text-[20px]! md:text-2xl tracking-widest uppercase"
@@ -264,25 +264,25 @@ export default function Hero() {
                     <div className="flex-grow"></div>
 
                     {/*
-                      Philosophy block, text centered on all screens.
-                      Mobile (<768px): 80vw wide, shifted -7.5vw so it is centered on the SCREEN
-                                       (parent starts at 15vw and is 85vw wide, so its center is 57.5vw).
-                      Medium (768-1023px): left-aligned block, 40vw wide so it never overlaps the image.
-                      Desktop (>=1024px): left-aligned block, 450px wide, nudged left by 5vw.
+                      Philosophy block.
+                      Alignment: centered on mobile (max-md), left on web (md+).
+                      Left edge now matches the Mission block exactly on web:
+                      md -> translate-x-0 (already), lg -> translate-x-0 (was -5vw).
+                      Spacing: eyebrow -> paragraph gap via mb-3 / md:mb-4.
                     */}
                     <div
                         ref={slowRef}
-                        className="w-[80vw] max-w-[450px] mx-auto -translate-x-[7.5vw] text-center parallax-slow pointer-events-auto final-twist md:mx-0 md:translate-x-0 md:w-[40vw] lg:w-full lg:-translate-x-[5vw]"
+                        className="w-[80vw] max-w-[450px] mx-auto -translate-x-[7.5vw] parallax-slow pointer-events-auto final-twist max-md:text-center md:text-left md:mx-0 md:translate-x-0 md:w-[40vw] lg:w-full lg:translate-x-0"
                     >
 
-                        <div className="mb-8 text-center">
+                        <div className="mb-3 md:mb-4 max-md:text-center md:text-left">
                             <SplitText
                                 text="Our Philosophy"
                                 wordClass="text-[#669C86] font-[300] text-[20px]! md:text-2xl tracking-widest uppercase"
                             />
                         </div>
 
-                        <div className="text-center">
+                        <div className="max-md:text-center md:text-left">
                             <SplitText
                                 text="India doesn't only need new real estate, it needs promised projects completed. Reviving existing developments is faster, smarter, and more valuable."
                                 wordClass="text-[#669C86] text-[18px]! md:text-2xl leading-snug font-medium"
