@@ -72,7 +72,7 @@ const steps = [
     image: "/images/model-2.png",
 
     imageClass: `
-      top-[650px]
+      top-[670px]
       right-[6vw]
 
       sm:top-[650px]
@@ -91,31 +91,36 @@ const steps = [
       2xl:right-[25vw]
     `,
 
-    textClass: `
-      top-[900px]
-      right-[6vw]
-      w-[65vw]
+textClass: `
+  top-[750px]
+  left-[6vw]
+  w-[42vw]
 
-      sm:top-[720px]
-      sm:right-[52vw]
-      sm:w-[38vw]
+  sm:top-[720px]
+  sm:right-[52vw]
+  sm:left-auto
+  sm:w-[38vw]
 
-      md:top-[750px]
-      md:right-[40vw]
-      md:w-[280px]
+  md:top-[750px]
+  md:right-[40vw]
+  md:left-auto
+  md:w-[280px]
 
-      lg:top-[600px]
-      lg:right-[8vw]
-      lg:w-[260px]
+  lg:top-[600px]
+  lg:right-[8vw]
+  lg:left-auto
+  lg:w-[260px]
 
-      xl:top-[600px]
-      xl:right-[12vw]
-      xl:w-[260px]
+  xl:top-[600px]
+  xl:right-[12vw]
+  xl:left-auto
+  xl:w-[260px]
 
-      2xl:top-[600px]
-      2xl:right-[25vw]
-      2xl:w-[260px]
-    `,
+  2xl:top-[600px]
+  2xl:right-[25vw]
+  2xl:left-auto
+  2xl:w-[260px]
+`,
   },
 
   {
@@ -126,7 +131,7 @@ const steps = [
     image: "/images/model-3.png",
 
     imageClass: `
-      top-[1150px]
+      top-[1120px]
       left-[6vw]
 
       sm:top-[1050px]
@@ -181,7 +186,7 @@ const steps = [
     image: "/images/model-4.png",
 
     imageClass: `
-      top-[1650px]
+      top-[1570px]
       right-[6vw]
 
       sm:top-[1450px]
@@ -202,33 +207,36 @@ const steps = [
     
     `,
 
-    textClass: `
-      top-[1930px]
-      right-[6vw]
-      w-[65vw]
+  textClass: `
+  top-[1680px]
+  left-[6vw]
+  w-[42vw]
 
-      sm:top-[1520px]
-      sm:right-[52vw]
-      sm:w-[38vw]
+  sm:top-[1520px]
+  sm:right-[52vw]
+  sm:left-auto
+  sm:w-[38vw]
 
-      md:top-[1600px]
-      md:right-[40vw]
-      md:w-[280px]
+  md:top-[1600px]
+  md:right-[40vw]
+  md:left-auto
+  md:w-[280px]
 
-      lg:top-[1130px]
-      lg:right-[2vw]
-      lg:w-[240px]
+  lg:top-[1130px]
+  lg:right-[2vw]
+  lg:left-auto
+  lg:w-[240px]
 
-      xl:top-[1150px]
-      xl:right-[8vw]
-      xl:w-[240px]
-    
-      2xl:top-[1150px]
-      
-      2xl:w-[240px]
+  xl:top-[1150px]
+  xl:right-[8vw]
+  xl:left-auto
+  xl:w-[240px]
 
-       min-[1688px]:right-[10vw]!
-    `,
+  2xl:top-[1150px]
+  2xl:right-[10vw]
+  2xl:left-auto
+  2xl:w-[240px]
+`,
   },
 ];
 
@@ -387,7 +395,7 @@ export default function OurModel() {
         relative
         w-full
 
-        h-[2400px]
+        h-[2000px]
 
         sm:h-[1900px]
 
