@@ -9,9 +9,8 @@ import Image from "next/image";
 gsap.registerPlugin(ScrollTrigger);
 
 /*
-  NOTE: the classes below only position items from `sm` (640px) upward.
-  On phones (< 640px) the items sit in normal flow (see the JSX),
-  so there are no un-prefixed top/left/right/width classes here.
+  The classes below only position items from `sm` (640px) upward.
+  On phones (< 640px) items sit in normal flow (see the JSX).
 */
 const steps = [
   {
@@ -225,10 +224,7 @@ export default function OurModel() {
     () => {
       const mm = gsap.matchMedia();
 
-      /* ==========================================
-         TABLET / DESKTOP (640px and up)
-         Original parallax, unchanged
-         ========================================== */
+      /* TABLET / DESKTOP (640px and up): original parallax, unchanged */
       mm.add("(min-width: 640px)", () => {
         const parallax = (
           target: gsap.TweenTarget,
@@ -258,30 +254,23 @@ export default function OurModel() {
 
           if (!image || !text) return;
 
-          // STEP 02: image + text move up together
           if (index === 1) {
             parallax([image, text], image, 15, -15);
             return;
           }
 
-          // STEP 04: image moves up, text moves down
           if (index === 3) {
             parallax(image, image, 15, -15);
             parallax(text, image, -15, 15);
             return;
           }
 
-          // STEP 01 + 03: image moves down, text moves up
           parallax(image, image, -15, 15);
           parallax(text, image, 10, -10);
         });
       });
 
-      /* ==========================================
-         MOBILE (below 640px)
-         No image parallax. Only the texts move,
-         all with the exact same parallax.
-         ========================================== */
+      /* MOBILE (below 640px): no image parallax, same text parallax on all */
       mm.add("(max-width: 639px)", () => {
         textRefs.current.forEach((text) => {
           if (!text) return;
@@ -322,15 +311,13 @@ export default function OurModel() {
 
         flex
         flex-col
-        gap-8
+        gap-8!
         h-auto
-        pt-[200px]
-        pb-12
+        pb-20!
 
         sm:block
-        sm:gap-0
-        sm:pt-0
-        sm:pb-0
+        sm:gap-0!
+        sm:pb-0!
 
         sm:h-[1900px]
 
@@ -347,87 +334,82 @@ export default function OurModel() {
         bg-[#FFFDF8]
       "
     >
-      {/* HEADER */}
-
-      <div
-        className="
-          absolute
-
-          top-6
-          left-6
-
-          sm:top-12
-          sm:left-10
-
-          md:top-20
-          md:left-14
-
-          lg:left-20
-
-          xl:left-24
-
-          2xl:left-25
-
-          z-20
-        "
-      >
-        <p className="text-para uppercase font-light text-orange">
-          Our Model
-        </p>
-      </div>
-
-      {/* MAIN HEADING */}
-
-      <div
-        className="
-          absolute
-
-          top-20
-          left-6
-          right-8
-
-          sm:top-20
-          sm:left-auto
-          sm:right-10
-          sm:max-w-[420px]
-          sm:text-right
-
-          md:top-12
-          md:right-12
-          md:max-w-md
-
-          lg:right-[8vw]
-          lg:max-w-lg
-
-          xl:right-[10vw]
-          xl:max-w-xl
-
-          2xl:right-[12vw]
-
-          z-20
-        "
-      >
-        <h2
+      {/* HEADER + HEADING
+          Mobile: one centered block in normal flow at the top, so the
+          steps always start AFTER it.
+          sm and up: `contents` removes the wrapper and the two children
+          are absolutely positioned exactly as before. */}
+      <div className="flex flex-col items-center gap-4! px-6 pt-10! pb-4! text-center sm:contents">
+        <div
           className="
-            text-subheading
+            z-20
 
-            sm:text-[22px]
+            sm:absolute
+            sm:top-12
+            sm:left-10
 
-            md:text-heading
+            md:top-20
+            md:left-14
 
-            font-normal
-            text-orange
-            leading-tight
+            lg:left-20
+
+            xl:left-24
+
+            2xl:left-25
           "
         >
-          ACWA focuses on unlocking value from projects.
-        </h2>
+          <p className="text-para uppercase font-light text-orange max-sm:text-center!">
+            Our Model
+          </p>
+        </div>
+
+        <div
+          className="
+            z-20
+
+            sm:absolute
+            sm:top-20
+            sm:left-auto
+            sm:right-10
+            sm:max-w-[420px]
+            sm:text-right
+
+            md:top-12
+            md:right-12
+            md:max-w-md
+
+            lg:right-[8vw]
+            lg:max-w-lg
+
+            xl:right-[10vw]
+            xl:max-w-xl
+
+            2xl:right-[12vw]
+          "
+        >
+          <h2
+            className="
+              text-subheading
+
+              sm:text-[22px]
+
+              md:text-heading
+
+              font-normal
+              text-orange
+              leading-tight
+              max-sm:text-center!
+            "
+          >
+            ACWA focuses on unlocking value from projects.
+          </h2>
+        </div>
       </div>
 
       {/* STEPS
           Mobile: each step is a row (image + text). Even steps flip sides.
-          sm and up: `contents` removes the row so the absolute
-          positioning works exactly as before. */}
+          sm and up: `contents` removes the row so absolute positioning
+          works exactly as before. */}
 
       {steps.map((step, index) => {
         const textOnLeft = index % 2 === 1;

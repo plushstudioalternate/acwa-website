@@ -18,21 +18,19 @@ export default function HeroPhilosophy() {
     () => {
       const mm = gsap.matchMedia();
 
-      const createTimeline = (end: string, scrub: number) =>
-        gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "bottom bottom",
-            end,
-            scrub,
-            pin: true,
-            anticipatePin: 1,
-          },
-        });
-
-      // Desktop: image expands, heading + philosophy slide out
+      // Desktop: image expands, heading + philosophy slide out (unchanged)
       mm.add("(min-width: 768px)", () => {
-        createTimeline("+=100%", 1)
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "bottom bottom",
+              end: "+=100%",
+              scrub: 1,
+              pin: true,
+              anticipatePin: 1,
+            },
+          })
           .to(
             imageWrapRef.current,
             { left: "0%", width: "100%", ease: "none", duration: 1 },
@@ -50,21 +48,24 @@ export default function HeroPhilosophy() {
           );
       });
 
-      // Mobile: shorter scroll distance + tighter scrub so the image
-      // expansion feels quick and smooth. Image is in normal flow here,
-      // so only width is animated (it grows to the left because of ml-auto).
+      // Mobile: NO pin, NO text animation. Everything scrolls normally,
+      // so nothing can look like parallax. Only the image widens
+      // as it scrolls into view.
       mm.add("(max-width: 767px)", () => {
-        createTimeline("+=40%", 0.5)
-          .to(
-            imageWrapRef.current,
-            { width: "100%", ease: "none", duration: 1 },
-            0
-          )
-          .to(
-            headingRef.current,
-            { x: "-100%", opacity: 0, ease: "none", duration: 1 },
-            0
-          );
+        gsap.fromTo(
+          imageWrapRef.current,
+          { width: "50%" },
+          {
+            width: "100%",
+            ease: "none",
+            scrollTrigger: {
+              trigger: imageWrapRef.current,
+              start: "top 80%",
+              end: "top 30%",
+              scrub: 0.5,
+            },
+          }
+        );
       });
 
       return () => mm.revert();
@@ -75,10 +76,10 @@ export default function HeroPhilosophy() {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full max-w-full overflow-x-clip flex flex-col gap-10 pt-10 md:block md:gap-0 md:pt-0 md:h-[150vh] md:overflow-visible"
+      className="relative w-full max-w-full overflow-x-clip flex flex-col gap-6! pt-8! md:block md:gap-0! md:pt-0! md:h-[150vh] md:overflow-visible"
     >
       {/* Image
-          Mobile: normal flow, right-aligned, half width (expands on scroll)
+          Mobile: normal flow, right-aligned, half width (widens on scroll)
           Desktop: bottom-anchored, full 100vh height, right 50% width */}
       <div
         ref={imageWrapRef}
@@ -96,17 +97,15 @@ export default function HeroPhilosophy() {
         </div>
       </div>
 
-      {/* Mission + Heading
-          Mobile: centered, in flow at the top, smaller heading so it fits the screen
-          Desktop: overlaps top of image, wider max-width */}
+      {/* Mission + Heading */}
       <div
         ref={headingRef}
         className="relative order-1 w-full max-w-full px-6 text-center z-20 md:order-none md:absolute md:bottom-[calc(100vh-6rem)] md:left-1/4 md:w-auto md:max-w-4xl md:px-0 md:text-left"
       >
-        <p className="text-subheading uppercase font-light text-blue mb-2">
+        <p className="text-subheading uppercase font-light text-blue mb-2 max-md:text-center!">
           Mission
         </p>
-        <h1 className="text-[34px] sm:text-[48px] md:text-[80px] font-normal text-blue leading-[1.1]">
+        <h1 className="text-[34px] sm:text-[48px] md:text-[80px] font-normal text-blue leading-[1.1] max-md:text-center!">
           Reviving India&apos;s
           <br />
           Stalled Real Estate
@@ -114,7 +113,7 @@ export default function HeroPhilosophy() {
       </div>
 
       {/* Philosophy text
-          Mobile: in flow, centered on the screen, sits between heading and image (no parallax)
+          Mobile: in flow, centered, no animation
           Desktop: bottom aligned with image, pushed left */}
       <div
         ref={philosophyRef}

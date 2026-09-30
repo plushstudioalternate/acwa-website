@@ -2,9 +2,34 @@ import Image from "next/image";
 
 export default function MissionVision() {
   return (
-    <section className="relative w-full pt-[180px] md:pt-[200px]">
-      {/* Mission */}
-      <div className="absolute top-2 md:top-12 flex flex-col gap-3! md:gap-6! left-5 xl:top-40 md:left-[55vw]! xl:left-[55vw]! xl:translate-x-0 sm:left-[55vw]! w-[42%]! md:w-1/3! lg:w-1/3 z-20 text-center">
+    <section className="relative w-full sm:pt-[180px] md:pt-[200px]">
+      {/* MOBILE ONLY: Mission + Vision side by side in one row */}
+      <div className="flex items-start gap-4 px-5 pt-2 pb-6 sm:hidden">
+        <div className="flex w-1/2 flex-col gap-3 text-center">
+          <p className="text-[18px] uppercase font-light text-grey mb-2 text-center">
+            Mission
+          </p>
+          <hr className="border-t border-grey/40 w-full mb-4" />
+          <p className="text-[14px] [font-family:var(--font-abacaxi)] font-normal text-grey text-center">
+            To revive viable stalled projects through structured execution and
+            responsible recovery.
+          </p>
+        </div>
+
+        <div className="flex w-1/2 flex-col gap-3 text-center">
+          <p className="text-[18px] uppercase font-light text-grey mb-2 text-center">
+            Vision
+          </p>
+          <hr className="border-t border-grey/40 w-full mb-4" />
+          <p className="text-[14px] [font-family:var(--font-abacaxi)] font-normal text-grey text-center">
+            To become India&apos;s leading platform for real estate revival
+            and project completion.
+          </p>
+        </div>
+      </div>
+
+      {/* Mission (sm and up) */}
+      <div className="absolute top-2 md:top-12 hidden sm:flex flex-col gap-3! md:gap-6! left-5 xl:top-40 md:left-[55vw]! xl:left-[55vw]! xl:translate-x-0 sm:left-[55vw]! w-[42%]! md:w-1/3! lg:w-1/3 z-20 text-center">
         <p className="text-[18px] sm:text-subheading md:text-subheading lg:text-subheading xl:text-subheading uppercase font-light text-grey mb-2 md:mb-4 text-center">
           Mission
         </p>
@@ -25,11 +50,8 @@ export default function MissionVision() {
           className="w-full h-auto"
         />
 
-        {/* Vision
-            Mobile top offset = -(section top padding - Mission's top offset)
-            = -(180px - 8px) = -172px, so it lines up with Mission.
-            If you change pt-[180px] or top-2 above, update -top-[172px] too. */}
-        <div className="absolute w-[42%] md:w-1/3 flex flex-col gap-3! md:gap-6 -top-[172px] right-5 md:left-[55vw]! xl:top-48 xl:left-[55vw]! xl:translate-x-0 sm:top-15 sm:left-[55vw]! z-20 text-center">
+        {/* Vision (sm and up) */}
+        <div className="absolute w-[42%] md:w-1/3 hidden sm:flex flex-col gap-3! md:gap-6 -top-[172px] right-5 md:left-[55vw]! xl:top-48 xl:left-[55vw]! xl:translate-x-0 sm:top-15 sm:left-[55vw]! z-20 text-center">
           <p className="text-[18px] sm:text-subheading md:text-subheading lg:text-subheading xl:text-subheading uppercase font-light text-grey mb-2 md:mb-4 text-center">
             Vision
           </p>
