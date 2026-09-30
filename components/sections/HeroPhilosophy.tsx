@@ -97,15 +97,18 @@ export default function HeroPhilosophy() {
         </div>
       </div>
 
-      {/* Mission + Heading */}
+      {/* Mission + Heading
+          Alignment set ONCE on the container: center on mobile, left on web.
+          Children inherit — no per-element text-align, no conflicts.
+          gap-2 is the single knob for the Mission -> heading spacing. */}
       <div
         ref={headingRef}
-        className="relative order-1 w-full max-w-full px-6 text-center z-20 md:order-none md:absolute md:bottom-[calc(100vh-6rem)] md:left-1/4 md:w-auto md:max-w-4xl md:px-0 md:text-left"
+        className="relative order-1 w-full max-w-full px-6 z-20 flex flex-col gap-2 text-center md:order-none md:absolute md:bottom-[calc(100vh-6rem)] md:left-1/4 md:w-auto md:max-w-4xl md:px-0 md:text-left"
       >
-        <p className="text-subheading uppercase font-light text-blue max-md:text-center!">
+        <p className="text-subheading uppercase font-light text-blue">
           Mission
         </p>
-        <h1 className="text-[34px] sm:text-[48px] md:text-[80px] font-normal text-blue leading-[1.1] max-md:text-center!">
+        <h1 className="text-[34px] sm:text-[48px] md:text-[80px] font-normal text-blue leading-[1.1]">
           Reviving India&apos;s
           <br />
           Stalled Real Estate
@@ -113,16 +116,17 @@ export default function HeroPhilosophy() {
       </div>
 
       {/* Philosophy text
-          Mobile: in flow, centered, no animation
-          Desktop: bottom aligned with image, pushed left */}
+          Same pattern: alignment once on the container (center mobile / left web),
+          left edge at left-1/4 to line up exactly under the Mission text.
+          gap-2 is the single knob for the eyebrow -> paragraph spacing. */}
       <div
         ref={philosophyRef}
-        className="relative order-2 mx-auto self-center w-[72%] max-w-md text-center z-20 md:order-none md:absolute md:bottom-12 md:left-1/4 md:mx-0 md:w-[28rem] md:max-w-none md:text-left"
+        className="relative order-2 mx-auto self-center w-[72%] max-w-md z-20 flex flex-col gap-2 text-center md:order-none md:absolute md:bottom-12 md:left-1/4 md:mx-0 md:w-[28rem] md:max-w-none md:text-left"
       >
-        <p className="text-subheading uppercase font-light text-green text-center md:text-left">
+        <p className="text-subheading uppercase font-light text-green">
           Our Philosophy
         </p>
-        <p className="text-para font-normal text-green text-center md:text-left">
+        <p className="text-para font-normal text-green">
           India doesn&apos;t only need new real estate, it needs promised
           projects completed. Reviving existing developments is faster,
           smarter, and more valuable.
