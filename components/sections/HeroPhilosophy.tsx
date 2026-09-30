@@ -102,7 +102,7 @@ export default function HeroPhilosophy() {
         ref={headingRef}
         className="relative order-1 w-full max-w-full px-6 text-center z-20 md:order-none md:absolute md:bottom-[calc(100vh-6rem)] md:left-1/4 md:w-auto md:max-w-4xl md:px-0 md:text-left"
       >
-        <p className="text-subheading uppercase font-light text-blue mb-2 max-md:text-center!">
+        <p className="text-subheading uppercase font-light text-blue max-md:text-center!">
           Mission
         </p>
         <h1 className="text-[34px] sm:text-[48px] md:text-[80px] font-normal text-blue leading-[1.1] max-md:text-center!">
@@ -117,12 +117,12 @@ export default function HeroPhilosophy() {
           Desktop: bottom aligned with image, pushed left */}
       <div
         ref={philosophyRef}
-        className="relative order-2 mx-auto w-[72%] max-w-md text-center z-20 md:order-none md:absolute md:bottom-12 md:left-16 md:mx-0 md:w-[28rem] md:max-w-none"
+        className="relative order-2 mx-auto self-center w-[72%] max-w-md text-center z-20 md:order-none md:absolute md:bottom-12 md:left-1/4 md:mx-0 md:w-[28rem] md:max-w-none md:text-left"
       >
-        <p className="text-subheading uppercase font-light text-green mb-4 text-center">
+        <p className="text-subheading uppercase font-light text-green text-center md:text-left">
           Our Philosophy
         </p>
-        <p className="text-para font-normal text-green !text-center">
+        <p className="text-para font-normal text-green text-center md:text-left">
           India doesn&apos;t only need new real estate, it needs promised
           projects completed. Reviving existing developments is faster,
           smarter, and more valuable.
