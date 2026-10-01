@@ -10,27 +10,28 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function FullBleedReveal() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const imageWrapRef = useRef<HTMLDivElement>(null);
+  const imageBoxRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
 
-      // Desktop / tablet only: reveal animation.
-      // On mobile nothing is created, so no pinning or scroll distance is added.
+      // Desktop / tablet only: small -> large scale reveal.
+      // On mobile nothing is created here, so no pinning or scroll
+      // distance is ever added on mobile.
       mm.add("(min-width: 768px)", () => {
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "center center",
-              end: "+=100%",
-              scrub: 1,
-              pin: true,
-              anticipatePin: 1,
-            },
-          })
-          .to(imageWrapRef.current, { inset: "0%", ease: "none", duration: 1 }, 0);
+        gsap.to(imageBoxRef.current, {
+          scale: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "center center",
+            end: "+=100%",
+            scrub: 1,
+            pin: true,
+            anticipatePin: 1,
+          },
+        });
       });
 
       return () => mm.revert();
@@ -40,7 +41,7 @@ export default function FullBleedReveal() {
 
   return (
     <>
-      {/* MOBILE: static image, full width, natural height */}
+      {/* MOBILE: static image, full width, natural height — unchanged */}
       <div className="w-full bg-[#FFFDF8] md:hidden">
         <Image
           src="/images/enlarged image.jpg"
@@ -52,15 +53,18 @@ export default function FullBleedReveal() {
         />
       </div>
 
-      {/* DESKTOP / TABLET: original reveal animation */}
+      {/* DESKTOP / TABLET: small -> large scale reveal */}
       <div
         ref={sectionRef}
         className="relative hidden h-[60dvh] w-full overflow-hidden bg-[#FFFDF8] md:block"
       >
         <div
-          ref={imageWrapRef}
-          className="absolute"
-          style={{ inset: "5%" }}
+          ref={imageBoxRef}
+          className="absolute inset-0"
+          style={{
+            transform: "scale(0.75)",
+            transformOrigin: "center center",
+          }}
         >
           <Image
             src="/images/enlarged image.jpg"

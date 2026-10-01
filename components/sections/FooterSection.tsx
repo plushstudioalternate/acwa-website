@@ -99,7 +99,7 @@ export default function FooterSection() {
       </div>
 
       {/* ───────── Row 2 · founder block ───────── */}
-      <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-[25%_75%] md:gap-0 mt-64 md:mt-0">
+      <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-[25%_75%] md:gap-0 mt-[5dvh] md:mt-0">
         {/* col 1 */}
         <div className="flex justify-center md:justify-end md:pr-8!">
           <div
@@ -120,9 +120,9 @@ export default function FooterSection() {
             &ldquo;Revival is responsibility.&rdquo;
           </p>
 
-            <a href="#" className="mt-10! pb-0.5 text-[12px] font-semibold uppercase tracking-widest">
-  Get in touch
-</a>
+          <a href="#" className="mt-10! pb-0.5 text-[12px] font-semibold uppercase tracking-widest">
+            Get in touch
+          </a>
         </div>
       </div>
 
